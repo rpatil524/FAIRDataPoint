@@ -14,7 +14,6 @@ import java.io.StringReader;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
-import nl.dtls.fairdatapoint.utils.ExampleTurtleFiles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openrdf.model.Model;
@@ -29,31 +28,33 @@ import javax.annotation.Nonnull;
  * @since 2016-11-28
  * @version 0.1
  */
-class RDFFiles {
+public class RDFFiles {
     
     private final static Logger LOGGER = LogManager.getLogger(
-            ExampleTurtleFiles.class.getName());
+            RDFFiles.class.getName());
     
     public static final String FDP_METADATA_FILE = "fdp.ttl";
     public static final String CATALOG_METADATA_DIR = "catalog/";
     public static final String DATASET_METADATA_DIR = "dataset/";
     public static final String DISTRIBUTION_METADATA_DIR = "distribution/";
+    public static final String DATARECORD_METADATA_DIR = "dataRecord/";
     public static final String BASE_URI_PLACEHOULDER = "BASE_URI";
+    public static final RDFFormat DEFAULT_FORMAT = RDFFormat.TURTLE;
+    
     
     /**
      * Method to read the content of a turtle file
      * 
      * @param fileName Turtle file name
      * @return File content as a string
+     * @throws java.io.IOException
      */
-    public static String getFileContent(String fileName)  {        
-        String content = "";  
-        try {
-            URL fileURL = RDFFiles.class.getResource(fileName);
-            content = Resources.toString(fileURL, Charsets.UTF_8);
-        } catch (IOException ex) {
-            LOGGER.error("Error getting turle file",ex);          
-        }        
+    public static String getFileContent(String fileName) throws IOException  {          
+        URL fileURL = RDFFiles.class.getResource(fileName);
+        if(fileURL == null) {
+            return null;
+        }
+        String content = Resources.toString(fileURL, Charsets.UTF_8); 
         return content;
     }
     

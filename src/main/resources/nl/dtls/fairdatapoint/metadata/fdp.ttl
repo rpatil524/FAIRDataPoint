@@ -18,16 +18,16 @@
 @prefix foaf: <http://xmlns.com/foaf/> .
 
 
-<BASE_URI/fdp> dct:alternative "DTL FDP"@en ;
+<BASE_URI> dct:alternative "DTL FDP"@en ;
 	dct:description "The DTL FAIR Data Point hosts the FAIR Data versions of datasets that have been made FAIR during BYODs as well as other relevant life sciences datasets"@en ;
 	dct:title "DTL FAIR Data Point"@en ;
 	dct:hasVersion	"1.0" ;
 	dct:publisher	<http://dtls.nl> ;
-	fdp:metadataIdentifier <http://dev-vm.fair-dtls.surf-hosted.nl:8082/fdp-metadataID> ;
+	fdp:metadataIdentifier <BASE_URI/fdp-metadataID> ;
 	fdp:metadataIssued "2016-10-27"^^xsd:date ;
 	fdp:metadataModified "2016-10-27"^^xsd:date ;
-	r3d:repositoryIdentifier <http://dev-vm.fair-dtls.surf-hosted.nl:8082/fdp-repositoryID> ;
-	r3d:dataCatalog <BASE_URI/fdp/biobank> , <BASE_URI/fdp/comparativeGenomics> , <BASE_URI/fdp/patient-registry> , <BASE_URI/fdp/textmining> , <BASE_URI/fdp/transcriptomics> ;
+	r3d:repositoryIdentifier <BASE_URI/fdp-repositoryID> ;
+	r3d:dataCatalog <BASE_URI/biobank> , <BASE_URI/comparativeGenomics> , <BASE_URI/patient-registry> , <BASE_URI/textmining> , <BASE_URI/transcriptomics> ;
 	r3d:institution <http://dtls.nl> ;
 	r3d:institutionCountry <http://lexvo.org/id/iso3166/NL> ;
 	r3d:lastUpdate "2016-10-27"^^xsd:date ;

@@ -7,6 +7,7 @@ package nl.dtls.fairdatapoint.api.controller;
 
 import javax.servlet.http.HttpServletResponse;
 import nl.dtls.fairdatapoint.api.config.RestApiTestContext;
+import nl.dtls.fairdatapoint.utils.TestConstants;
 import org.apache.http.HttpHeaders;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -56,7 +57,8 @@ public class MetadataControllerTest {
         response = new MockHttpServletResponse();
         request.setMethod("GET");
         request.addHeader(HttpHeaders.ACCEPT, "application/trig");
-        request.setRequestURI("/textmining");      
+        String url = "/" + TestConstants.EXAMPLE_CATALOG_ID;
+        request.setRequestURI(url);      
         handler = handlerMapping.getHandler(request).getHandler();
         handlerAdapter.handle(request, response, handler);          
         assertEquals(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, 
@@ -77,7 +79,8 @@ public class MetadataControllerTest {
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
         request.setMethod("GET");
-        request.setRequestURI("/textmining");      
+        String url = "/" + TestConstants.EXAMPLE_CATALOG_ID;
+        request.setRequestURI(url);      
         handler = handlerMapping.getHandler(request).getHandler();
         handlerAdapter.handle(request, response, handler);          
         assertEquals(HttpServletResponse.SC_OK, response.getStatus());
@@ -99,7 +102,8 @@ public class MetadataControllerTest {
         response = new MockHttpServletResponse();
         request.setMethod("GET");
         request.addHeader(HttpHeaders.ACCEPT, "text/turtle");
-        request.setRequestURI("/textmining");      
+        String url = "/" + TestConstants.EXAMPLE_CATALOG_ID;
+        request.setRequestURI(url);      
         handler = handlerMapping.getHandler(request).getHandler();
         handlerAdapter.handle(request, response, handler);          
         assertEquals(HttpServletResponse.SC_OK, response.getStatus());
@@ -109,12 +113,15 @@ public class MetadataControllerTest {
         handlerAdapter.handle(request, response, handler);          
         assertEquals(HttpServletResponse.SC_OK, response.getStatus());
         
-        request.setRequestURI("/textmining/gene-disease-association_lumc");
+        url = url + "/" + TestConstants.EXAMPLE_DATASET_ID;
+        request.setRequestURI(url);
         request.addHeader(HttpHeaders.ACCEPT, "application/ld+json");      
         handler = handlerMapping.getHandler(request).getHandler();
         handlerAdapter.handle(request, response, handler);          
         assertEquals(HttpServletResponse.SC_OK, response.getStatus());
         
+        url = url + "/" + TestConstants.EXAMPLE_DISTRIBUTION_ID;
+        request.setRequestURI(url);         
         request.addHeader(HttpHeaders.ACCEPT, "application/rdf+xml");      
         handler = handlerMapping.getHandler(request).getHandler();
         handlerAdapter.handle(request, response, handler);          
@@ -160,8 +167,8 @@ public class MetadataControllerTest {
         response = new MockHttpServletResponse();
         request.setMethod("GET");
         request.addHeader(HttpHeaders.ACCEPT, "text/turtle");
-        request.setRequestURI(
-                "/textmining");      
+        String url = "/" + TestConstants.EXAMPLE_CATALOG_ID;
+        request.setRequestURI(url);      
         handler = handlerMapping.getHandler(request).getHandler();
         handlerAdapter.handle(request, response, handler);          
         assertEquals(HttpServletResponse.SC_OK, response.getStatus());
@@ -183,8 +190,8 @@ public class MetadataControllerTest {
         response = new MockHttpServletResponse();
         request.setMethod("GET");
         request.addHeader(HttpHeaders.ACCEPT, "text/turtle");
-        request.setRequestURI(
-                "/textmining/dumpy");      
+        String url = "/" + TestConstants.EXAMPLE_CATALOG_ID + "/dummpy";
+        request.setRequestURI(url);      
         handler = handlerMapping.getHandler(request).getHandler();
         handlerAdapter.handle(request, response, handler);          
         assertEquals(HttpServletResponse.SC_NOT_FOUND, response.getStatus());
@@ -206,8 +213,59 @@ public class MetadataControllerTest {
         response = new MockHttpServletResponse();
         request.setMethod("GET");
         request.addHeader(HttpHeaders.ACCEPT, "text/turtle");
-        request.setRequestURI(
-                "/textmining/gene-disease-association_lumc");      
+        String url = "/" + TestConstants.EXAMPLE_CATALOG_ID;
+        url = url + "/" + TestConstants.EXAMPLE_DATASET_ID;
+        request.setRequestURI(url);      
+        handler = handlerMapping.getHandler(request).getHandler();
+        handlerAdapter.handle(request, response, handler);          
+        assertEquals(HttpServletResponse.SC_OK, response.getStatus());
+    } 
+    
+    
+    /**
+     * Check non existing distribution Content.
+     * 
+     * @throws Exception 
+     */    
+    @Test    
+    public void nonExistingDistribution() throws Exception{
+        
+        MockHttpServletRequest request;
+        MockHttpServletResponse response;         
+        Object handler;  
+        
+        request = new MockHttpServletRequest();
+        response = new MockHttpServletResponse();
+        request.setMethod("GET");
+        request.addHeader(HttpHeaders.ACCEPT, "text/turtle");
+        String url = "/" + TestConstants.EXAMPLE_CATALOG_ID;
+        url = url + "/" + TestConstants.EXAMPLE_DATASET_ID + "/dummpu";
+        request.setRequestURI(url);      
+        handler = handlerMapping.getHandler(request).getHandler();
+        handlerAdapter.handle(request, response, handler);          
+        assertEquals(HttpServletResponse.SC_NOT_FOUND, response.getStatus());
+    }
+    
+    /**
+     * Check existing distribution Content.
+     * 
+     * @throws Exception 
+     */    
+    @Test    
+    public void existingDistribution() throws Exception{
+        
+        MockHttpServletRequest request;
+        MockHttpServletResponse response;         
+        Object handler;  
+        
+        request = new MockHttpServletRequest();
+        response = new MockHttpServletResponse();
+        request.setMethod("GET");
+        request.addHeader(HttpHeaders.ACCEPT, "text/turtle");
+        String url = "/" + TestConstants.EXAMPLE_CATALOG_ID;
+        url = url + "/" + TestConstants.EXAMPLE_DATASET_ID + "/" + 
+                TestConstants.EXAMPLE_DISTRIBUTION_ID;
+        request.setRequestURI(url);       
         handler = handlerMapping.getHandler(request).getHandler();
         handlerAdapter.handle(request, response, handler);          
         assertEquals(HttpServletResponse.SC_OK, response.getStatus());

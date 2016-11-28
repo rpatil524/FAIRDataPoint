@@ -29,15 +29,10 @@ public class RDFUtils {
             = LogManager.getLogger(RDFUtils.class);
     
     public static String writeToString(List<Statement> statements, 
-            RDFFormat format) throws Exception {		
+            RDFFormat format) throws RepositoryException, RDFHandlerException  {		
         StringWriter sw = new StringWriter();		
         RDFWriter writer = Rio.createWriter(format, sw);
-        try {
-            propagateToHandler(statements, writer);
-        } catch (RepositoryException | RDFHandlerException ex) {
-            LOGGER.error("Error reading RDF statements");
-            throw (new Exception(ex.getMessage()));
-        }        
+        propagateToHandler(statements, writer);                
         return sw.toString();	
     }
 	

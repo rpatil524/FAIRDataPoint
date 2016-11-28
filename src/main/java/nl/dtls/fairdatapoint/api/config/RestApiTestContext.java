@@ -5,9 +5,6 @@
  */
 package nl.dtls.fairdatapoint.api.config;
 
-import nl.dtls.fairdatapoint.domain.StoreManager;
-import nl.dtls.fairdatapoint.domain.StoreManagerException;
-import nl.dtls.fairdatapoint.domain.StoreManagerImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openrdf.repository.Repository;
@@ -36,24 +33,7 @@ public class RestApiTestContext {
     private final static Logger LOGGER
             = LogManager.getLogger(RestApiContext.class);
 
-    @Bean(name="repository", initMethod = "initialize",
-            destroyMethod = "shutDown")
-    public Repository repository(final Environment env)
-            throws RepositoryException {
-        // For tets we use only in memory
-        Sail store = new MemoryStore();
-        Repository repository = new SailRepository(store);
-        LOGGER.info("Inmemory triple store initialize for test");
-        return repository;
-    }
-
-    @Bean(name = "storeManager")
-    @DependsOn({"repository", "prepopulateStore", "baseURI"})
-    public StoreManager storeManager() throws RepositoryException,
-            StoreManagerException {
-        return new StoreManagerImpl();
-    }
-
+    
     @Bean(name = "properties")
     public static PropertySourcesPlaceholderConfigurer
         propertySourcesPlaceholderConfigurer() {

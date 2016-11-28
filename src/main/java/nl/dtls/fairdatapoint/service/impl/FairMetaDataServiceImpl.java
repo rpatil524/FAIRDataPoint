@@ -5,17 +5,21 @@
  */
 package nl.dtls.fairdatapoint.service.impl;
 
+import com.google.common.base.Preconditions;
+import javax.annotation.Nonnull;
+import java.io.IOException;
 import java.util.List;
-import nl.dtls.fairdatapoint.domain.StoreManager;
+import nl.dtls.fairdatapoint.metadata.RDFFiles;
 import nl.dtls.fairdatapoint.service.FairMetaDataService;
 import nl.dtls.fairdatapoint.service.FairMetadataServiceException;
 import nl.dtls.fairdatapoint.service.impl.utils.RDFUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openrdf.model.Statement;
+import org.openrdf.repository.RepositoryException;
 import org.openrdf.rio.RDFFormat;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.openrdf.rio.RDFHandlerException;
+import org.openrdf.rio.RDFParseException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,177 +31,156 @@ import org.springframework.stereotype.Service;
 @Service("fairMetaDataServiceImpl")
 public class FairMetaDataServiceImpl implements FairMetaDataService {
     private final static Logger LOGGER 
-            = LogManager.getLogger(FairMetaDataServiceImpl.class);
-    @Autowired
-    private StoreManager storeManager;
-    @Autowired
-    @Qualifier("baseURI")
-    private String baseURI;
-
+            = LogManager.getLogger(FairMetaDataServiceImpl.class);    
+    
     @Override
-    public String retrieveFDPMetaData(RDFFormat format) 
-            throws FairMetadataServiceException {
-        
-        if(format == null) {
-            String errorMsg = "The RDFFormat can't be NULL";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        String fdpURI = this.baseURI.concat("fdp");
+    public String retrieveFDPMetaData(@Nonnull String baseURI, 
+            @Nonnull RDFFormat format) throws FairMetadataServiceException { 
+        Preconditions.checkNotNull(baseURI, "Base URI must not be null.");
+        Preconditions.checkArgument(!baseURI.isEmpty(), 
+                "Base URI must not be empty.");
+        Preconditions.checkNotNull(format, "RDF format must not be null."); 
+        String fileAbsURL = RDFFiles.FDP_METADATA_FILE;
         String fdpMetadata = null;
         try {
-            List<Statement> statements = 
-                    storeManager.retrieveResource(fdpURI);
-            if(!statements.isEmpty()) {
-                fdpMetadata = RDFUtils.writeToString(statements, format);
-            }
-        } catch (Exception ex) {
-            LOGGER.error("Error retrieving fdp's metadata");
-            throw(new FairMetadataServiceException(ex.getMessage()));
+            fdpMetadata = getMetadata(fileAbsURL, baseURI, format);
+        } catch (NullPointerException ex) {
+            String errMsg = "Error getting file " + ex;
+            LOGGER.error(errMsg);
+            throw(new FairMetadataServiceException(errMsg));
         }
         return fdpMetadata;
     }
 
     @Override
-    public String retrieveCatalogMetaData(String catalogID, RDFFormat format) 
+    public String retrieveCatalogMetaData(@Nonnull String baseURI,
+            @Nonnull String catalogID, @Nonnull RDFFormat format) 
             throws FairMetadataServiceException {
         
-        if(format == null) {
-            String errorMsg = "The RDFFormat can't be NULL";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        if(catalogID == null || catalogID.isEmpty()) {
-            String errorMsg = "The catalogID can't be NULL or empty";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        String catalogURI = this.baseURI.concat("fdp").concat("/").
-                concat(catalogID);
+        Preconditions.checkNotNull(baseURI, "Base URI must not be null.");
+        Preconditions.checkArgument(!baseURI.isEmpty(), 
+                "Base URI must not be empty.");
+        Preconditions.checkNotNull(format, "RDF format must not be null.");
+        Preconditions.checkArgument(!catalogID.isEmpty(), 
+                "catalogID must not be empty.");
+        Preconditions.checkNotNull(catalogID, "catalogID must not be null."); 
+        String fileName =  catalogID + "." + RDFFiles.DEFAULT_FORMAT.
+                getFileExtensions().get(0);
+        String fileAbsURL = RDFFiles.CATALOG_METADATA_DIR + fileName;
         String catalogMetadata = null;
         try {
-            List<Statement> statements = 
-                    storeManager.retrieveResource(catalogURI);
-            if(!statements.isEmpty()) {
-                catalogMetadata = RDFUtils.writeToString(statements, format);
-            }
-        } catch (Exception ex) {
-            LOGGER.error("Error retrieving catalog metadata of <" + 
-                    catalogURI + ">");
-            throw(new FairMetadataServiceException(ex.getMessage()));
+            catalogMetadata = getMetadata(fileAbsURL, baseURI, format);
+        } catch (NullPointerException ex) {
+            String errMsg = "Requesed file not fount " + ex;
+            LOGGER.debug(errMsg);
         }
         return catalogMetadata;
     }
 
     @Override
-    public String retrieveDatasetMetaData(String catalogID, 
-            String datasetID, RDFFormat format) 
-            throws FairMetadataServiceException {
-        
-        if(format == null) {
-            String errorMsg = "The RDFFormat can't be NULL";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        if(catalogID == null || catalogID.isEmpty()) {
-            String errorMsg = "The catalogID can't be NULL or empty";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        if(datasetID == null || datasetID.isEmpty()) {
-            String errorMsg = "The datasetID can't be NULL or empty";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        String datasetURI = this.baseURI.concat("fdp").concat("/").
-                concat(catalogID).concat("/").concat(datasetID);
+    public String retrieveDatasetMetaData(@Nonnull String baseURI,
+            @Nonnull String datasetID, @Nonnull RDFFormat format) 
+            throws FairMetadataServiceException {        
+        Preconditions.checkNotNull(baseURI, "Base URI must not be null.");
+        Preconditions.checkArgument(!baseURI.isEmpty(), 
+                "Base URI must not be empty.");
+        Preconditions.checkNotNull(format, "RDF format must not be null.");
+        Preconditions.checkArgument(!datasetID.isEmpty(), 
+                "datasetID must not be empty.");
+        Preconditions.checkNotNull(datasetID, "datasetID must not be null."); 
+        String fileName =  datasetID + "." + RDFFiles.DEFAULT_FORMAT.
+                getFileExtensions().get(0);
+        String fileAbsURL = RDFFiles.DATASET_METADATA_DIR + fileName;
         String datasetMetadata = null;
         try {
-            List<Statement> statements = 
-                    storeManager.retrieveResource(datasetURI);
-            if(!statements.isEmpty()) {
-                datasetMetadata = RDFUtils.writeToString(statements, format);
-            }
-        } catch (Exception ex) {
-            LOGGER.error("Error retrieving dataset metadata of <" + 
-                    datasetURI + ">");
-            throw(new FairMetadataServiceException(ex.getMessage()));
+            datasetMetadata = getMetadata(fileAbsURL, baseURI, format);
+        } catch (NullPointerException ex) {
+            String errMsg = "Requesed file not fount " + ex;
+            LOGGER.debug(errMsg);
         }
         return datasetMetadata;        
     }     	
 
     @Override
-    public String retrieveDataRecordMetaData(String dataRecordID, 
-            RDFFormat format) throws FairMetadataServiceException {
-        if(format == null) {
-            String errorMsg = "The RDFFormat can't be NULL";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        if(dataRecordID == null || dataRecordID.isEmpty()) {
-            String errorMsg = "The dataRecordID can't be NULL or empty";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        String datarecordURI = this.baseURI.concat("fdp/").
-                concat("datarecord/").concat(dataRecordID);
-        String catalogMetadata = null;
+    public String retrieveDataRecordMetaData(@Nonnull String baseURI, 
+            @Nonnull String dataRecordID, @Nonnull RDFFormat format) 
+            throws FairMetadataServiceException {
+        
+        Preconditions.checkNotNull(baseURI, "Base URI must not be null.");
+        Preconditions.checkArgument(!baseURI.isEmpty(), 
+                "Base URI must not be empty.");
+        Preconditions.checkNotNull(format, "RDF format must not be null.");
+        Preconditions.checkArgument(!dataRecordID.isEmpty(), 
+                "dataRecordID must not be empty.");
+        Preconditions.checkNotNull(dataRecordID, 
+                "dataRecordID must not be null."); 
+        
+        String fileName =  dataRecordID + "." + RDFFiles.DEFAULT_FORMAT.
+                getFileExtensions().get(0);
+        String fileAbsURL = RDFFiles.DATASET_METADATA_DIR + fileName;
+        String dataRecordMetadata = null;
         try {
-            List<Statement> statements = 
-                    storeManager.retrieveResource(datarecordURI);
-            if(!statements.isEmpty()) {
-                catalogMetadata = RDFUtils.writeToString(statements, format);
-            }
-        } catch (Exception ex) {
-            LOGGER.error("Error retrieving datarecord metadata of <" + 
-                    datarecordURI + ">");
-            throw(new FairMetadataServiceException(ex.getMessage()));
+            dataRecordMetadata = getMetadata(fileAbsURL, baseURI, format);
+        } catch (NullPointerException ex) {
+            String errMsg = "Requesed file not fount " + ex;
+            LOGGER.debug(errMsg);
         }
-        return catalogMetadata;
+        return dataRecordMetadata;
     }
     
     @Override
-    public String retrieveDatasetDistribution(String catalogID, 
-            String datasetID, String distributionID, RDFFormat format) 
-            throws FairMetadataServiceException {  
+    public String retrieveDatasetDistribution(@Nonnull String baseURI, 
+            @Nonnull String distributionID, @Nonnull RDFFormat format) 
+            throws FairMetadataServiceException { 
         
-        if(format == null) {
-            String errorMsg = "The RDFFormat can't be NULL";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        if(catalogID == null || catalogID.isEmpty()) {
-            String errorMsg = "The catalogID can't be NULL or empty";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        if(datasetID == null || datasetID.isEmpty()) {
-            String errorMsg = "The datasetID can't be NULL or empty";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        if(distributionID == null || distributionID.isEmpty()) {
-            String errorMsg = "The distributionID can't be NULL or empty";
-            LOGGER.error(errorMsg);
-            throw(new IllegalArgumentException(errorMsg));
-        }
-        String datasetDistributionURI = this.baseURI.concat("fdp").concat("/").
-                concat(catalogID).concat("/").concat(datasetID).
-                concat("/").concat(distributionID);
+        Preconditions.checkNotNull(baseURI, "Base URI must not be null.");
+        Preconditions.checkArgument(!baseURI.isEmpty(), 
+                "Base URI must not be empty.");
+        Preconditions.checkNotNull(format, "RDF format must not be null.");
+        Preconditions.checkArgument(!distributionID.isEmpty(), 
+                "distributionID must not be empty.");
+        Preconditions.checkNotNull(distributionID,
+                "distributionID must not be null."); 
+        
+        String fileName =  distributionID + "." + RDFFiles.DEFAULT_FORMAT.
+                getFileExtensions().get(0);
+        String fileAbsURL = RDFFiles.DISTRIBUTION_METADATA_DIR + fileName;
         String datasetDistribution = null;
-        try {
-            List<Statement> statements = 
-                    this.storeManager.retrieveResource(
-                            datasetDistributionURI);
-            if(!statements.isEmpty()) {
-                datasetDistribution = 
-                        RDFUtils.writeToString(statements, format);
-            }
-        } catch (Exception ex) {
-            LOGGER.error("Error retrieving dataset metadata of <" + 
-                    datasetDistributionURI + ">");
-            throw(new FairMetadataServiceException(ex.getMessage()));
+        try{
+            datasetDistribution = getMetadata(fileAbsURL, baseURI, format);
+        } catch (NullPointerException ex) {
+            String errMsg = "Requesed file not fount " + ex;
+            LOGGER.debug(errMsg);
         }
         return datasetDistribution;        
     } 
+    
+    private String getMetadata(String fileURL, String baseURI, 
+            RDFFormat format) throws FairMetadataServiceException{
+        String metadata = null;
+        try {
+            String content = RDFFiles.getFileContent(fileURL);
+            Preconditions.checkNotNull(content,
+                "RDF content string must not be null.");
+            LOGGER.info(content);
+            List<Statement> statements = RDFFiles.getStatements(content, 
+                    baseURI, RDFFiles.DEFAULT_FORMAT);
+            if(!statements.isEmpty()) {
+                metadata = RDFUtils.writeToString(statements, format);
+            }            
+            return metadata; 
+        } catch (RDFParseException ex) {                
+            String errMsg = "Error parsing rdf file " + ex;
+            LOGGER.error(errMsg);
+            throw(new FairMetadataServiceException(errMsg));
+        } catch (RepositoryException | RDFHandlerException ex) {
+            String errMsg = "Error converting rdf statements " + ex;
+            LOGGER.error(errMsg);
+            throw(new FairMetadataServiceException(errMsg));
+        } catch (IOException ex) {
+            String errMsg = "Error getting file " + ex;
+            LOGGER.error(errMsg);
+            throw(new FairMetadataServiceException(errMsg));
+        }
+    }
 }

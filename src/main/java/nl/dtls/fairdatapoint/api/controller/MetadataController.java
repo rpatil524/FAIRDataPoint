@@ -57,10 +57,10 @@ public class MetadataController {
         LOGGER.info("GET : " + request.getRequestURL()); 
         String contentType = request.getHeader(HttpHeaders.ACCEPT);
         RDFFormat requesetedContentType = HttpHeadersUtils.
-                getRequestedAcceptHeader(contentType);        
+                getRequestedAcceptHeader(contentType);
         try { 
             responseBody = fairMetaDataService.retrieveFDPMetaData(
-                    requesetedContentType);
+                    getRequesedURL(request), requesetedContentType);
             HttpHeadersUtils.set200ResponseHeaders(responseBody, response, 
                     requesetedContentType);        
             } catch (FairMetadataServiceException ex) {            
@@ -86,7 +86,8 @@ public class MetadataController {
         RDFFormat requesetedContentType = HttpHeadersUtils.getRequestedAcceptHeader(contentType);   
         try {                
             responseBody = fairMetaDataService.                        
-                    retrieveCatalogMetaData(catalogID, requesetedContentType);
+                    retrieveCatalogMetaData(getRequesedURL(request), catalogID, 
+                            requesetedContentType);
                 HttpHeadersUtils.set200ResponseHeaders(responseBody, response, 
                         requesetedContentType);
             } catch (FairMetadataServiceException ex) {
@@ -110,10 +111,11 @@ public class MetadataController {
         LOGGER.info("GET : " + request.getRequestURL());
         String responseBody;
         String contentType = request.getHeader(HttpHeaders.ACCEPT);
-        RDFFormat requesetedContentType = HttpHeadersUtils.getRequestedAcceptHeader(contentType);    
+        RDFFormat requesetedContentType = HttpHeadersUtils.
+                getRequestedAcceptHeader(contentType);    
         try {   
             responseBody = fairMetaDataService.retrieveDatasetMetaData(
-                    catalogID, datasetID, requesetedContentType);                
+                    getRequesedURL(request), datasetID, requesetedContentType);                
             HttpHeadersUtils.set200ResponseHeaders(responseBody, response, 
                     requesetedContentType);
             } catch (FairMetadataServiceException ex) {                
@@ -140,7 +142,8 @@ public class MetadataController {
         RDFFormat requesetedContentType = HttpHeadersUtils.getRequestedAcceptHeader(contentType);    
         try {   
             responseBody = fairMetaDataService.retrieveDataRecordMetaData(
-                    datarecordID, requesetedContentType);                
+                    getRequesedURL(request), datarecordID, 
+                    requesetedContentType);                
             HttpHeadersUtils.set200ResponseHeaders(responseBody, response, 
                     requesetedContentType);
             } catch (FairMetadataServiceException ex) {                
@@ -168,7 +171,7 @@ public class MetadataController {
         RDFFormat requesetedContentType = HttpHeadersUtils.getRequestedAcceptHeader(acceptHeader);        
         try {                
             responseBody = fairMetaDataService.retrieveDatasetDistribution(                       
-                    catalogID, datasetID, distributionID, 
+                    getRequesedURL(request), distributionID, 
                     requesetedContentType);                
             HttpHeadersUtils.set200ResponseHeaders(responseBody, response, 
                     requesetedContentType);            
@@ -179,4 +182,19 @@ public class MetadataController {
         return responseBody;
     }
     
+    /**
+     * Get requested URL
+     *
+     * @param request HttpServletRequest
+     * @return URL as a string
+     */
+    private String getRequesedURL(HttpServletRequest request) {
+        String url = request.getRequestURL().toString();
+        if (url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+        return url;
+    }
+    
 }
+

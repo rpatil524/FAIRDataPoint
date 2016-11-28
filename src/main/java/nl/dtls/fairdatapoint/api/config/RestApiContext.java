@@ -1,9 +1,6 @@
 package nl.dtls.fairdatapoint.api.config;
 
 
-import nl.dtls.fairdatapoint.domain.StoreManager;
-import nl.dtls.fairdatapoint.domain.StoreManagerException;
-import nl.dtls.fairdatapoint.domain.StoreManagerImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openrdf.repository.Repository;
@@ -41,31 +38,6 @@ public class RestApiContext extends WebMvcConfigurerAdapter {
     private final static Logger LOGGER
             = LogManager.getLogger(RestApiContext.class);
 
-    @Bean(name="repository", initMethod = "initialize",
-            destroyMethod = "shutDown")
-    public Repository repository( Environment env)
-            throws RepositoryException {
-        String storeURL = env.getProperty("store-url");
-        int storeType = env.getProperty("store-type", Integer.class);
-        Repository repository;
-        if (storeType == 2) {
-            repository = new SPARQLRepository(storeURL);
-            LOGGER.info("HTTP triple store initialize");
-        } else { // In memory is the default store
-            Sail store = new MemoryStore();
-            repository = new SailRepository(store);
-            LOGGER.info("Inmemory triple store initialize");
-        }
-        return repository;
-    }
-
-    @Bean(name = "storeManager")
-    @DependsOn({"repository", "prepopulateStore", "baseURI"})
-    public StoreManager storeManager() throws RepositoryException,
-            StoreManagerException {
-        return new StoreManagerImpl();
-    }
-
     @Bean(name = "properties")
     public static PropertySourcesPlaceholderConfigurer
         propertySourcesPlaceholderConfigurer() {
@@ -75,13 +47,6 @@ public class RestApiContext extends WebMvcConfigurerAdapter {
     @Bean(name = "baseURI")
     public String baseURI(final Environment env)  {
         String rdfBaseURI = env.getRequiredProperty("base-uri");
-        return rdfBaseURI;
-    }
-
-    @Bean(name = "prepopulateStore")
-    public boolean prepopulateStore(final Environment env)  {
-        boolean rdfBaseURI = Boolean.valueOf(
-                env.getProperty("store-prepopulate", "false"));
         return rdfBaseURI;
     }
 

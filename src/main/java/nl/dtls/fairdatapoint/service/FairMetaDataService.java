@@ -16,58 +16,61 @@ import org.openrdf.rio.RDFFormat;
 public interface FairMetaDataService {   
     /**
      * Get FDP server metadata
+     * @param baseURI
      * @param format RDFFormat serialization formats
      * @return  String object  
      * @throws FairMetadataServiceException  
      */
-    String retrieveFDPMetaData(RDFFormat format) 
+    String retrieveFDPMetaData(String baseURI, RDFFormat format) 
             throws FairMetadataServiceException;  
 
     /**
      * Get catalog metadata
+     * @param baseURI
      * @param catalogID Unique catalog ID
      * @param format RDFFormat serialization formats
      * @return  String object
      * @throws FairMetadataServiceException
      */
     String retrieveCatalogMetaData
-        (String catalogID, RDFFormat format) throws FairMetadataServiceException;
+        (String baseURI, String catalogID, RDFFormat format) 
+                throws FairMetadataServiceException;
 
     /**
      * Get dataset metadata
-     * @param catalogID
+     * @param baseURI
      * @param datasetID Unique dataset ID
      * @param format RDFFormat serialization formats
      * @return  String object
      * @throws FairMetadataServiceException
      */
     String retrieveDatasetMetaData
-        (String catalogID, String datasetID, RDFFormat format) 
+        (String baseURI, String datasetID, RDFFormat format) 
                 throws FairMetadataServiceException;
         
     /**
      * Get datarecord metadata
+     * @param baseURI
      * @param dataRecordID Unique dataRecordID ID
      * @param format RDFFormat serialization formats
      * @return  String object
      * @throws FairMetadataServiceException
      */
     String retrieveDataRecordMetaData
-        (String dataRecordID, RDFFormat format) 
+        (String baseURI, String dataRecordID, RDFFormat format) 
                 throws FairMetadataServiceException;
         
     /**
      * Get dataset distribution
      * 
-     * @param catalogID
-     * @param datasetID
+     * @param baseURI
      * @param distributionID
      * @param format
      * @return  String object  
      * @throws nl.dtls.fairdatapoint.service.FairMetadataServiceException  
      */
-    String retrieveDatasetDistribution(String catalogID, 
-            String datasetID, String distributionID, RDFFormat format) 
+    String retrieveDatasetDistribution(String baseURI, String distributionID, 
+            RDFFormat format) 
             throws FairMetadataServiceException;      
         
 }
