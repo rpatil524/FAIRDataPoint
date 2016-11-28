@@ -1,0 +1,975 @@
+@prefix ns1: <http://xmlns.com/foaf/0.1/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.dtls.nl/organization/103471> a ns1:Organization ;
+    ns1:name "RaDiCo-ACOStill - The French Adult and Childhood Onset Still Disease Cohort" .
+
+<http://www.dtls.nl/organization/103601> a ns1:Organization ;
+    ns1:name "RaDiCo-COBBALT - French national nohort on Bardet-Biedl and Alström syndromes" .
+
+<http://www.dtls.nl/organization/103728> a ns1:Organization ;
+    ns1:name "RaDiCo-COLPAC - French national cohort on Low Phospholipid-Associated Cholelithiasis syndrome" .
+
+<http://www.dtls.nl/organization/103851> a ns1:Organization ;
+    ns1:name "RaDiCo-PCD - French national cohort on Primary Ciliary Dyskinesia" .
+
+<http://www.dtls.nl/organization/103978> a ns1:Organization ;
+    ns1:name "RaDiCo-ECYSCO - European Cystinosis Cohort" .
+
+<http://www.dtls.nl/organization/104228> a ns1:Organization ;
+    ns1:name "RaDiCo-MARFAN - French national cohort on Marfan syndrome" .
+
+<http://www.dtls.nl/organization/104351> a ns1:Organization ;
+    ns1:name "RaDiCo-PP - French cohort for clinical, genetic and socio-economic study of Periodic Paralysis" .
+
+<http://www.dtls.nl/organization/104446> a ns1:Organization ;
+    ns1:name "RaDiCo-PID - French national cohort on Idiopathic Interstitial Pneumonia: from infancy to elderly." .
+
+<http://www.dtls.nl/organization/104597> a ns1:Organization ;
+    ns1:name "RaDiCo-RETICO - French national Cohort on hereditary retinal dystrophies" .
+
+<http://www.dtls.nl/organization/104720> a ns1:Organization ;
+    ns1:name "RaDiCo-SED-VASC - French national cohort on the vascular Ehlers-Danlos syndrome" .
+
+<http://www.dtls.nl/organization/105062> a ns1:Organization ;
+    ns1:name "RaDiCo-EURBIO-Alport - European cohort on Alport Syndrome" .
+
+<http://www.dtls.nl/organization/10779> a ns1:Organization ;
+    ns1:name "3q29 deletion Registry" .
+
+<http://www.dtls.nl/organization/10797> a ns1:Organization ;
+    ns1:name "Alagille Syndrome Alliance International Registry" .
+
+<http://www.dtls.nl/organization/10809> a ns1:Organization ;
+    ns1:name "American Partnership for Eosinophilic Disorders" .
+
+<http://www.dtls.nl/organization/10821> a ns1:Organization ;
+    ns1:name "Australian Myotonic Dystrophy Registry" .
+
+<http://www.dtls.nl/organization/10833> a ns1:Organization ;
+    ns1:name "Australian National Duchenne Muscular Dystrophy Registry" .
+
+<http://www.dtls.nl/organization/10845> a ns1:Organization ;
+    ns1:name "Australian National Spinal Muscular Atrophy Registry" .
+
+<http://www.dtls.nl/organization/10869> a ns1:Organization ;
+    ns1:name "Barth Syndrome Registry & Repository" .
+
+<http://www.dtls.nl/organization/10881> a ns1:Organization ;
+    ns1:name "C.R.A.V.A.T." .
+
+<http://www.dtls.nl/organization/10893> a ns1:Organization ;
+    ns1:name "Cancer Experience Registry" .
+
+<http://www.dtls.nl/organization/10905> a ns1:Organization ;
+    ns1:name "Charcot-Marie-Tooth North American Registry" .
+
+<http://www.dtls.nl/organization/10917> a ns1:Organization ;
+    ns1:name "Clinical Registry Investigating Bardet-Biedl Syndrome" .
+
+<http://www.dtls.nl/organization/10929> a ns1:Organization ;
+    ns1:name "Congenital Muscular Disease International Registry" .
+
+<http://www.dtls.nl/organization/10941> a ns1:Organization ;
+    ns1:name "Cornelia de Lange Syndrome Foundation" .
+
+<http://www.dtls.nl/organization/10953> a ns1:Organization ;
+    ns1:name "Craniofacial diseases registry" .
+
+<http://www.dtls.nl/organization/10965> a ns1:Organization ;
+    ns1:name "Cure Cystinosis International Registry" .
+
+<http://www.dtls.nl/organization/10977> a ns1:Organization ;
+    ns1:name "Cystinuria registry" .
+
+<http://www.dtls.nl/organization/10989> a ns1:Organization ;
+    ns1:name "DM Scope (Myotonic dystrophy patient registry in France)" .
+
+<http://www.dtls.nl/organization/11001> a ns1:Organization ;
+    ns1:name "Dandy-Walker Alliance, Inc." .
+
+<http://www.dtls.nl/organization/11013> a ns1:Organization ;
+    ns1:name "Danubian Biobank Consortium" .
+
+<http://www.dtls.nl/organization/11025> a ns1:Organization ;
+    ns1:name "DuchenneConnect Registry" .
+
+<http://www.dtls.nl/organization/11037> a ns1:Organization ;
+    ns1:name "Dup15q Alliance International Registry" .
+
+<http://www.dtls.nl/organization/11049> a ns1:Organization ;
+    ns1:name "EBCare Registry" .
+
+<http://www.dtls.nl/organization/11061> a ns1:Organization ;
+    ns1:name "ERCUSYN: European registry on Cushing's syndrome" .
+
+<http://www.dtls.nl/organization/11073> a ns1:Organization ;
+    ns1:name "EUNEFRON: registry of the European network for the study of orphan nephropathies" .
+
+<http://www.dtls.nl/organization/11085> a ns1:Organization ;
+    ns1:name "EUROSCA-R: European patient registry on spinocerebellar ataxias" .
+
+<http://www.dtls.nl/organization/11097> a ns1:Organization ;
+    ns1:name "European Alport registry" .
+
+<http://www.dtls.nl/organization/11109> a ns1:Organization ;
+    ns1:name "European CHS registry" .
+
+<http://www.dtls.nl/organization/11121> a ns1:Organization ;
+    ns1:name "European Cystic Fibrosis Society Patient Registry" .
+
+<http://www.dtls.nl/organization/11133> a ns1:Organization ;
+    ns1:name "European HD REGISTRY" .
+
+<http://www.dtls.nl/organization/11145> a ns1:Organization ;
+    ns1:name "European Registry for Intoxication type Metabolic Diseases" .
+
+<http://www.dtls.nl/organization/11157> a ns1:Organization ;
+    ns1:name "European patient registry on autoimmune Addison's disease" .
+
+<http://www.dtls.nl/organization/11169> a ns1:Organization ;
+    ns1:name "FALS Connect" .
+
+<http://www.dtls.nl/organization/11181> a ns1:Organization ;
+    ns1:name "FOD (Fatty Oxidation Disorders) Family Support Group" .
+
+<http://www.dtls.nl/organization/11193> a ns1:Organization ;
+    ns1:name "Geisinger Autism & Developmental Medicine Institute" .
+
+<http://www.dtls.nl/organization/11205> a ns1:Organization ;
+    ns1:name "German adrenal tumors registry" .
+
+<http://www.dtls.nl/organization/11217> a ns1:Organization ;
+    ns1:name "Global Fukutin Related Protein Registry" .
+
+<http://www.dtls.nl/organization/11229> a ns1:Organization ;
+    ns1:name "The NIH/NCATS GRDR® Program_" .
+
+<http://www.dtls.nl/organization/11241> a ns1:Organization ;
+    ns1:name "Global Registry for Inherited Neuropathy (HNF)" .
+
+<http://www.dtls.nl/organization/11253> a ns1:Organization ;
+    ns1:name "HARLEY CGRN Registry" .
+
+<http://www.dtls.nl/organization/11265> a ns1:Organization ;
+    ns1:name "HD Study Group Natural History Database" .
+
+<http://www.dtls.nl/organization/11277> a ns1:Organization ;
+    ns1:name "I-DSD: International disorders of sex development registry" .
+
+<http://www.dtls.nl/organization/11289> a ns1:Organization ;
+    ns1:name "International Cholangiocarcinoma Patient Registry" .
+
+<http://www.dtls.nl/organization/112988> a ns1:Organization ;
+    ns1:name "Alport Syndrome Treatments and Outcomes Registry" .
+
+<http://www.dtls.nl/organization/11301> a ns1:Organization ;
+    ns1:name "International Essential Tremor Foundation" .
+
+<http://www.dtls.nl/organization/11313> a ns1:Organization ;
+    ns1:name "International LGDA Registry for Lymphatic Malformations" .
+
+<http://www.dtls.nl/organization/113165> a ns1:Organization ;
+    ns1:name "CoF-AT study: a French cohort on ataxia-telangiectasia" .
+
+<http://www.dtls.nl/organization/11325> a ns1:Organization ;
+    ns1:name "International Registry of Hemolytic Uremic Syndrome and Thrombotic Thrombocytopenic Purpura" .
+
+<http://www.dtls.nl/organization/113297> a ns1:Organization ;
+    ns1:name "Ataxia-Telangiectasia patient registry" .
+
+<http://www.dtls.nl/organization/11337> a ns1:Organization ;
+    ns1:name "Registry of Steroid-Resistant Nephrotic Syndrome" .
+
+<http://www.dtls.nl/organization/113478> a ns1:Organization ;
+    ns1:name "German alpha-1 antitrypsin deficiency registry" .
+
+<http://www.dtls.nl/organization/11349> a ns1:Organization ;
+    ns1:name "International registry for primary hyperoxaluria" .
+
+<http://www.dtls.nl/organization/11361> a ns1:Organization ;
+    ns1:name "Intracranial Hypertension Research Foundation" .
+
+<http://www.dtls.nl/organization/11373> a ns1:Organization ;
+    ns1:name "Registry of Membranoproliferative Glomerulonephritis (MPGN)" .
+
+<http://www.dtls.nl/organization/11385> a ns1:Organization ;
+    ns1:name "Italian cystic fibrosis patient registry" .
+
+<http://www.dtls.nl/organization/11397> a ns1:Organization ;
+    ns1:name "Jonah’s Just Begun Foundation to Cure Sanfilippo and Ben’s Dream-Sanfilippo Research Foundation" .
+
+<http://www.dtls.nl/organization/11409> a ns1:Organization ;
+    ns1:name "Kidney Cancer Association" .
+
+<http://www.dtls.nl/organization/114240> a ns1:Organization ;
+    ns1:name "EUROWILSON: European clinical database for Wilson disease" .
+
+<http://www.dtls.nl/organization/11433> a ns1:Organization ;
+    ns1:name "Lipodystrophy Connect" .
+
+<http://www.dtls.nl/organization/114413> a ns1:Organization ;
+    ns1:name "Severe Chronic Neutropenia International Registry" .
+
+<http://www.dtls.nl/organization/11445> a ns1:Organization ;
+    ns1:name "Living With Trisomy 13" .
+
+<http://www.dtls.nl/organization/11457> a ns1:Organization ;
+    ns1:name "MITOCON: Italian Registry of Mitochondrial Diseases" .
+
+<http://www.dtls.nl/organization/114818> a ns1:Organization ;
+    ns1:name "Austrian Haemophilia Registry" .
+
+<http://www.dtls.nl/organization/11485> a ns1:Organization ;
+    ns1:name "My Retina Tracker" .
+
+<http://www.dtls.nl/organization/114950> a ns1:Organization ;
+    ns1:name "Czech National Programme for Haemophilia" .
+
+<http://www.dtls.nl/organization/11497> a ns1:Organization ;
+    ns1:name "Myotonic Dystrophy Family Registry" .
+
+<http://www.dtls.nl/organization/11509> a ns1:Organization ;
+    ns1:name "NBS Connect" .
+
+<http://www.dtls.nl/organization/115131> a ns1:Organization ;
+    ns1:name "FranceCoag: French cohort of patients suffering from hereditary coagulation disorders" .
+
+<http://www.dtls.nl/organization/11521> a ns1:Organization ;
+    ns1:name "Neurofibromatosis  Registry" .
+
+<http://www.dtls.nl/organization/115293> a ns1:Organization ;
+    ns1:name "Italian registry of hemophilia centre (AICE)" .
+
+<http://www.dtls.nl/organization/11533> a ns1:Organization ;
+    ns1:name "National Foundation for Ectodermal Dysplasias (NFED)" .
+
+<http://www.dtls.nl/organization/115425> a ns1:Organization ;
+    ns1:name "German Haemophilia Registry (DHR)" .
+
+<http://www.dtls.nl/organization/11545> a ns1:Organization ;
+    ns1:name "National Purpura Schoenlein-Henoch-Nephritis registry" .
+
+<http://www.dtls.nl/organization/115612> a ns1:Organization ;
+    ns1:name "Serbian registry of hemophilia and von Willebrand disease" .
+
+<http://www.dtls.nl/organization/11573> a ns1:Organization ;
+    ns1:name "National Registry for Myotonic Dystrophy (DM) and Facioscapulohumeral Dystrophy (FSHD)" .
+
+<http://www.dtls.nl/organization/115781> a ns1:Organization ;
+    ns1:name "NHD- National Haemophilia Database" .
+
+<http://www.dtls.nl/organization/11585> a ns1:Organization ;
+    ns1:name "NephCure Kidney Network Primary Nephrotic Syndrome Patient Registry" .
+
+<http://www.dtls.nl/organization/115938> a ns1:Organization ;
+    ns1:name "EUHASS: European haemophilia safety surveillance" .
+
+<http://www.dtls.nl/organization/11597> a ns1:Organization ;
+    ns1:name "North Star database" .
+
+<http://www.dtls.nl/organization/11609> a ns1:Organization ;
+    ns1:name "Organic Acidemia Association" .
+
+<http://www.dtls.nl/organization/116091> a ns1:Organization ;
+    ns1:name "National Haemophilia Register (Clintech)" .
+
+<http://www.dtls.nl/organization/11621> a ns1:Organization ;
+    ns1:name "PA International Patient Registry" .
+
+<http://www.dtls.nl/organization/116248> a ns1:Organization ;
+    ns1:name "Australian Bleeding Disorders Registry (ABDR)" .
+
+<http://www.dtls.nl/organization/11633> a ns1:Organization ;
+    ns1:name "PCDH19 Alliance" .
+
+<http://www.dtls.nl/organization/116406> a ns1:Organization ;
+    ns1:name "Alpha One Foundation Registry" .
+
+<http://www.dtls.nl/organization/11645> a ns1:Organization ;
+    ns1:name "PMG Awareness Organization" .
+
+<http://www.dtls.nl/organization/11657> a ns1:Organization ;
+    ns1:name "PNH Registry" .
+
+<http://www.dtls.nl/organization/11669> a ns1:Organization ;
+    ns1:name "PODONET: Registry for Steroid-Resistant Nephrotic Syndrome (SRNS) patients" .
+
+<http://www.dtls.nl/organization/11681> a ns1:Organization ;
+    ns1:name "PRISMS, (Parents and Researchers Interested in Smith-Magenis Sydrome)" .
+
+<http://www.dtls.nl/organization/11693> a ns1:Organization ;
+    ns1:name "PROMPT (Prospective Registry of Multiplex Testing)" .
+
+<http://www.dtls.nl/organization/11705> a ns1:Organization ;
+    ns1:name "PSC Partners Seeking a Cure" .
+
+<http://www.dtls.nl/organization/11717> a ns1:Organization ;
+    ns1:name "Pachyonychia Congenita Project" .
+
+<http://www.dtls.nl/organization/11729> a ns1:Organization ;
+    ns1:name "Paroxysmal Nocturnal Hemoglobinuria Registry" .
+
+<http://www.dtls.nl/organization/11741> a ns1:Organization ;
+    ns1:name "Patient registry for primary hyperoxaluria" .
+
+<http://www.dtls.nl/organization/11753> a ns1:Organization ;
+    ns1:name "Phelan-McDermid Syndrome International Registry" .
+
+<http://www.dtls.nl/organization/11765> a ns1:Organization ;
+    ns1:name "PrenatalArray.org" .
+
+<http://www.dtls.nl/organization/11777> a ns1:Organization ;
+    ns1:name "Nephrotic Syndrome Study Network" .
+
+<http://www.dtls.nl/organization/11789> a ns1:Organization ;
+    ns1:name "REaDY-Registry of muscular DYstrophy" .
+
+<http://www.dtls.nl/organization/11801> a ns1:Organization ;
+    ns1:name "Rare Cancer Genetics Registry" .
+
+<http://www.dtls.nl/organization/11813> a ns1:Organization ;
+    ns1:name "Rare renal cancers" .
+
+<http://www.dtls.nl/organization/11825> a ns1:Organization ;
+    ns1:name "Registro Italiano Malattie Rare" .
+
+<http://www.dtls.nl/organization/11837> a ns1:Organization ;
+    ns1:name "Registro Italiano Trombocitemia" .
+
+<http://www.dtls.nl/organization/11849> a ns1:Organization ;
+    ns1:name "RenalTube: patient registry of primary tubulopathies" .
+
+<http://www.dtls.nl/organization/11861> a ns1:Organization ;
+    ns1:name "Sarcoidosis-Advanced Registry for Cures (SARC)" .
+
+<http://www.dtls.nl/organization/11873> a ns1:Organization ;
+    ns1:name "Simons VIP CONNECT" .
+
+<http://www.dtls.nl/organization/11885> a ns1:Organization ;
+    ns1:name "Spanish registry of renal hereditary diseases" .
+
+<http://www.dtls.nl/organization/11897> a ns1:Organization ;
+    ns1:name "Sudden Arrhythmia Death Syndrome (SADS)" .
+
+<http://www.dtls.nl/organization/11909> a ns1:Organization ;
+    ns1:name "The Charles E. Holman Morgellons Disease Foundation" .
+
+<http://www.dtls.nl/organization/11921> a ns1:Organization ;
+    ns1:name "The FPIES Foundation Global Registry" .
+
+<http://www.dtls.nl/organization/11933> a ns1:Organization ;
+    ns1:name "The Global Dystonia Registry" .
+
+<http://www.dtls.nl/organization/11945> a ns1:Organization ;
+    ns1:name "The I Have IIH Foundation" .
+
+<http://www.dtls.nl/organization/11957> a ns1:Organization ;
+    ns1:name "The International Dysferlinopathy Registry" .
+
+<http://www.dtls.nl/organization/11969> a ns1:Organization ;
+    ns1:name "The North American Malignant Hyperthermia Registry of the Malignant Hyperthermia Association" .
+
+<http://www.dtls.nl/organization/11981> a ns1:Organization ;
+    ns1:name "The Romberg’s Connection" .
+
+<http://www.dtls.nl/organization/11993> a ns1:Organization ;
+    ns1:name "The Sturge-Weber Registry (SWF)" .
+
+<http://www.dtls.nl/organization/12005> a ns1:Organization ;
+    ns1:name "The Susan Sukalich Angioma Alliance Registry" .
+
+<http://www.dtls.nl/organization/12017> a ns1:Organization ;
+    ns1:name "The Transverse Myelitis Association" .
+
+<http://www.dtls.nl/organization/12029> a ns1:Organization ;
+    ns1:name "Trisomy 18 Foundation" .
+
+<http://www.dtls.nl/organization/12041> a ns1:Organization ;
+    ns1:name "UCD International Patient Registry" .
+
+<http://www.dtls.nl/organization/12053> a ns1:Organization ;
+    ns1:name "UK Rare Disease Registry (RaDaR)" .
+
+<http://www.dtls.nl/organization/12065> a ns1:Organization ;
+    ns1:name "Vestibular Disorders Association" .
+
+<http://www.dtls.nl/organization/12077> a ns1:Organization ;
+    ns1:name "Autoimmune neuromuscular disease" .
+
+<http://www.dtls.nl/organization/128572> a ns1:Organization ;
+    ns1:name "RaDiCo-FARD - French national cohort on the individual burden in the course of rare skin diseases" .
+
+<http://www.dtls.nl/organization/128651> a ns1:Organization ;
+    ns1:name "RaDiCo-GenIDA - Social network on rare monogenic forms of intellectual disabilities" .
+
+<http://www.dtls.nl/organization/128760> a ns1:Organization ;
+    ns1:name "RaDiCo-IDMet - French and European cohort on Imprinting Disorders and Metabolism Future." .
+
+<http://www.dtls.nl/organization/128941> a ns1:Organization ;
+    ns1:name "RaDiCo-AC-ŒIL - French national cohort on congenital defects of the eye" .
+
+<http://www.dtls.nl/organization/129072> a ns1:Organization ;
+    ns1:name "RaDiCo-MPS - French national cohort on mucopolysaccharidosis in the era of specific therapeutics." .
+
+<http://www.dtls.nl/organization/130321> a ns1:Organization ;
+    ns1:name "Registry NXT - Genzyme's Rare Disease Registries" .
+
+<http://www.dtls.nl/organization/130489> a ns1:Organization ;
+    ns1:name "Finnish patient registry on Fabry disease" .
+
+<http://www.dtls.nl/organization/130824> a ns1:Organization ;
+    ns1:name "The International Niemann Pick Disease Registry" .
+
+<http://www.dtls.nl/organization/130956> a ns1:Organization ;
+    ns1:name "Niemann-Pick C clinical database" .
+
+<http://www.dtls.nl/organization/131170> a ns1:Organization ;
+    ns1:name "National Register of Congenital Malformations " .
+
+<http://www.dtls.nl/organization/131302> a ns1:Organization ;
+    ns1:name "British Isles Network of Congenital Anomaly Registers" .
+
+<http://www.dtls.nl/organization/13611> a ns1:Organization ;
+    ns1:name "Dent Disease Registry" .
+
+<http://www.dtls.nl/organization/14682> a ns1:Organization ;
+    ns1:name "RDCRN Contact registry" .
+
+<http://www.dtls.nl/organization/155359> a ns1:Organization ;
+    ns1:name "GNE Myopathy Disease Monitoring Program (GNEM-DMP)" .
+
+<http://www.dtls.nl/organization/159202> a ns1:Organization ;
+    ns1:name "PedNet Haemophilia Registry" .
+
+<http://www.dtls.nl/organization/159334> a ns1:Organization ;
+    ns1:name "Belarus severe chronic neutropenia patient registry" .
+
+<http://www.dtls.nl/organization/159466> a ns1:Organization ;
+    ns1:name "The Austrian Myeloma Registry (AMR)" .
+
+<http://www.dtls.nl/organization/159598> a ns1:Organization ;
+    ns1:name "Registre français de l'hypertension artérielle pulmonaire (HTAP)" .
+
+<http://www.dtls.nl/organization/159885> a ns1:Organization ;
+    ns1:name "Shwachman-Diamond Syndrome Registry" .
+
+<http://www.dtls.nl/organization/161797> a ns1:Organization ;
+    ns1:name "NBIA Patient Registry (TIRCON)" .
+
+<http://www.dtls.nl/organization/161932> a ns1:Organization ;
+    ns1:name "Belgian familial adenomatous polyposis registry" .
+
+<http://www.dtls.nl/organization/162547> a ns1:Organization ;
+    ns1:name "Ukrainian Registry for Spinal Muscular Atrophy" .
+
+<http://www.dtls.nl/organization/167104> a ns1:Organization ;
+    ns1:name "Le Régistre Algérien des Malades Neuromusculaires (RAMN)​" .
+
+<http://www.dtls.nl/organization/167250> a ns1:Organization ;
+    ns1:name "Rare disease biobank and registry EXAMPLE" .
+
+<http://www.dtls.nl/organization/167562> a ns1:Organization ;
+    ns1:name "EURO-WABB: Registry for Wolfram syndrome, Alström syndrome, Bardet-Biedl syndrome" .
+
+<http://www.dtls.nl/organization/173631> a ns1:Organization ;
+    ns1:name "BIOGEN - Genetic Biobank" .
+
+<http://www.dtls.nl/organization/175391> a ns1:Organization ;
+    ns1:name "Myotubular and Centronuclear Myopathy Patient Registry" .
+
+<http://www.dtls.nl/organization/176402> a ns1:Organization ;
+    ns1:name "FRENCH CYSTIC FIBROSIS REGISTRY" .
+
+<http://www.dtls.nl/organization/176867> a ns1:Organization ;
+    ns1:name "The international ARPKD registry" .
+
+<http://www.dtls.nl/organization/177188> a ns1:Organization ;
+    ns1:name "The global aHUS Registry" .
+
+<http://www.dtls.nl/organization/177495> a ns1:Organization ;
+    ns1:name "CENTRAL DATA REGISTRY OF THE EUROPEAN COMPETENCE NETWORK ON MASTOCYTOSIS" .
+
+<http://www.dtls.nl/organization/177725> a ns1:Organization ;
+    ns1:name "COST Action BM1105 Patient Registry - GnRH Network" .
+
+<http://www.dtls.nl/organization/178115> a ns1:Organization ;
+    ns1:name "Rare Kidney Disease Registry and Biobank" .
+
+<http://www.dtls.nl/organization/178316> a ns1:Organization ;
+    ns1:name "ECARUCA: European Cytogeneticists Association Register of Unbalanced Chromosome Aberrations" .
+
+<http://www.dtls.nl/organization/190557> a ns1:Organization ;
+    ns1:name "SWCAR - South West congenital anomalies registry" .
+
+<http://www.dtls.nl/organization/190741> a ns1:Organization ;
+    ns1:name "UK LAM register" .
+
+<http://www.dtls.nl/organization/191161> a ns1:Organization ;
+    ns1:name "Rett Database Network" .
+
+<http://www.dtls.nl/organization/191553> a ns1:Organization ;
+    ns1:name "Global Prader-Willi Syndrome Registry" .
+
+<http://www.dtls.nl/organization/192524> a ns1:Organization ;
+    ns1:name "Cooperative European Paediatric Renal TransplAnt INitiative registry" .
+
+<http://www.dtls.nl/organization/192718> a ns1:Organization ;
+    ns1:name "Rare Kidney Disease Registry & BioResource" .
+
+<http://www.dtls.nl/organization/193177> a ns1:Organization ;
+    ns1:name "European Management Platform for Childhood Interstitial Lung Disease" .
+
+<http://www.dtls.nl/organization/35811> a ns1:Organization ;
+    ns1:name "The Swiss patient registry for Duchenne Muscular Dystrophy and Spinal Muscular Atrophy" .
+
+<http://www.dtls.nl/organization/35824> a ns1:Organization ;
+    ns1:name "Computer Registry of All Myopathies and Polyneuropathies (CRAMP)" .
+
+<http://www.dtls.nl/organization/36511> a ns1:Organization ;
+    ns1:name "Channelopathy database" .
+
+<http://www.dtls.nl/organization/36907> a ns1:Organization ;
+    ns1:name "German Spinal Muscular Atrophy and Duchenne Muscular Dystrophy  registry" .
+
+<http://www.dtls.nl/organization/37105> a ns1:Organization ;
+    ns1:name "Belgian Duchenne Muscular Dystropy Registry" .
+
+<http://www.dtls.nl/organization/38525> a ns1:Organization ;
+    ns1:name "Bulgarian patient registry for Duchenne/Becker Musucular Dystrophy and Spinal Muscular Atrophy" .
+
+<http://www.dtls.nl/organization/41839> a ns1:Organization ;
+    ns1:name "Dutch patient registry for Duchenne and Becker Muscular Dystrophy" .
+
+<http://www.dtls.nl/organization/42007> a ns1:Organization ;
+    ns1:name "Finnish NMD registry for DMD and SMA patients" .
+
+<http://www.dtls.nl/organization/44001> a ns1:Organization ;
+    ns1:name "Biobank of the Institute of Rare Diseases Research/Institute of Health Carlos III (IIER-ISCIII)" .
+
+<http://www.dtls.nl/organization/45274> a ns1:Organization ;
+    ns1:name "Cell line and DNA Bank of Genetic Movement Dis and Mitochondrial Dis - Besta Institute Milano, Italy" .
+
+<http://www.dtls.nl/organization/45401> a ns1:Organization ;
+    ns1:name "Bank of the Muscle Cell Biology Laboratory, Fondazione I.R.C.C.S Istituto Neurologico Carlo Besta" .
+
+<http://www.dtls.nl/organization/46165> a ns1:Organization ;
+    ns1:name "EFACTS European Friedreich’s Ataxia patient registry" .
+
+<http://www.dtls.nl/organization/46321> a ns1:Organization ;
+    ns1:name "Autosomal recessive spastic ataxia of Charlevoix-Saguenay ARSACS" .
+
+<http://www.dtls.nl/organization/46473> a ns1:Organization ;
+    ns1:name "Inherited peripheral neuropathies database" .
+
+<http://www.dtls.nl/organization/46628> a ns1:Organization ;
+    ns1:name "National UK MCP diagnostic service UCL MRC Centre for NMDs" .
+
+<http://www.dtls.nl/organization/46891> a ns1:Organization ;
+    ns1:name "Leiden Open Variation Database_Muscular Dystrophy pages" .
+
+<http://www.dtls.nl/organization/47042> a ns1:Organization ;
+    ns1:name "UMD-DYSF mutations database" .
+
+<http://www.dtls.nl/organization/47188> a ns1:Organization ;
+    ns1:name "National Genetics Reference Centre Diagnostic Mutation Database" .
+
+<http://www.dtls.nl/organization/47701> a ns1:Organization ;
+    ns1:name "Belarusian Patient Registries for SMA and DMD" .
+
+<http://www.dtls.nl/organization/47877> a ns1:Organization ;
+    ns1:name "Nemaline myopathy" .
+
+<http://www.dtls.nl/organization/48101> a ns1:Organization ;
+    ns1:name "Canadian Neuromuscular Disease Registry (CNDR)" .
+
+<http://www.dtls.nl/organization/48255> a ns1:Organization ;
+    ns1:name "Chinese Genetic Disease Registry" .
+
+<http://www.dtls.nl/organization/48409> a ns1:Organization ;
+    ns1:name "Egyptian NMD registry" .
+
+<http://www.dtls.nl/organization/49301> a ns1:Organization ;
+    ns1:name "Observatoire National Français des Patients Atteints de Dystrophie Musculaire Facio-Scapulo-Humérale" .
+
+<http://www.dtls.nl/organization/50316> a ns1:Organization ;
+    ns1:name "UK Myotonic Dystrophy Patient Registry" .
+
+<http://www.dtls.nl/organization/50490> a ns1:Organization ;
+    ns1:name "UK FSHD Patient Registry" .
+
+<http://www.dtls.nl/organization/50695> a ns1:Organization ;
+    ns1:name "UK DMD registry" .
+
+<http://www.dtls.nl/organization/54896> a ns1:Organization ;
+    ns1:name "UK SMA Patient Registry" .
+
+<http://www.dtls.nl/organization/55076> a ns1:Organization ;
+    ns1:name "LGMD2A Patient Registry" .
+
+<http://www.dtls.nl/organization/61665> a ns1:Organization ;
+    ns1:name "French auto-immunity and Rituximab (AIR) registry" .
+
+<http://www.dtls.nl/organization/61834> a ns1:Organization ;
+    ns1:name "Lupus nephritis registry (established by the german paediatric nephrology association)" .
+
+<http://www.dtls.nl/organization/61982> a ns1:Organization ;
+    ns1:name "Nephronophthisis registry for patients in Germany, Austria and Switzerland" .
+
+<http://www.dtls.nl/organization/62130> a ns1:Organization ;
+    ns1:name "National nephrogenic systemic fibrosis registry" .
+
+<http://www.dtls.nl/organization/62316> a ns1:Organization ;
+    ns1:name "Cell line and DNA Biobank from patients affected by Genetic Diseases" .
+
+<http://www.dtls.nl/organization/62447> a ns1:Organization ;
+    ns1:name "ESPN/ERA-EDTA Registry: European Registry for Children on Renal Replacement Therapy" .
+
+<http://www.dtls.nl/organization/62647> a ns1:Organization ;
+    ns1:name "Spanish patient registry of ataxias" .
+
+<http://www.dtls.nl/organization/62825> a ns1:Organization ;
+    ns1:name "RIAT: Ataxia teleangiectasia Italian registry" .
+
+<http://www.dtls.nl/organization/62971> a ns1:Organization ;
+    ns1:name "Irish Motor Neurone Disease Register" .
+
+<http://www.dtls.nl/organization/63124> a ns1:Organization ;
+    ns1:name "International Friedreich Ataxia Research Alliance registry" .
+
+<http://www.dtls.nl/organization/63303> a ns1:Organization ;
+    ns1:name "EMSA-SG: central patient registry of the European multiple system atrophy network" .
+
+<http://www.dtls.nl/organization/63562> a ns1:Organization ;
+    ns1:name "Jain Foundation patient registry" .
+
+<http://www.dtls.nl/organization/63836> a ns1:Organization ;
+    ns1:name "Turkish patient registries for DMD and SMA" .
+
+<http://www.dtls.nl/organization/64007> a ns1:Organization ;
+    ns1:name "Hungarian patient registry for Duchenne Muscular Dystrophy" .
+
+<http://www.dtls.nl/organization/64368> a ns1:Organization ;
+    ns1:name "Leiden Muscular Dystrophy pages Myotubularin 1" .
+
+<http://www.dtls.nl/organization/64524> a ns1:Organization ;
+    ns1:name "International Family Registry for Centronuclear and Myotubular Myopathies" .
+
+<http://www.dtls.nl/organization/65074> a ns1:Organization ;
+    ns1:name "Registry for neuromuscular disease" .
+
+<http://www.dtls.nl/organization/65242> a ns1:Organization ;
+    ns1:name "Cypriot Neuromuscular Diseases  Registry" .
+
+<http://www.dtls.nl/organization/65397> a ns1:Organization ;
+    ns1:name "Danish registry for neuromuscular diseases" .
+
+<http://www.dtls.nl/organization/65551> a ns1:Organization ;
+    ns1:name "French registry of patients with a dystrophinopathy (Duchenne or Becker Musucular Dystrophy)" .
+
+<http://www.dtls.nl/organization/65711> a ns1:Organization ;
+    ns1:name "Hellenic Neuromuscular Disorders Registry" .
+
+<http://www.dtls.nl/organization/65873> a ns1:Organization ;
+    ns1:name "Duchenne and Becker muscular dystrophy and spinalmuscular dystrophy patient registries in Poland" .
+
+<http://www.dtls.nl/organization/67104> a ns1:Organization ;
+    ns1:name "Japanese patient registry for Neuromuscular diseases" .
+
+<http://www.dtls.nl/organization/67264> a ns1:Organization ;
+    ns1:name "The Italian Registry of NMD Patients" .
+
+<http://www.dtls.nl/organization/67429> a ns1:Organization ;
+    ns1:name "International Spinal Muscular Atrophy Patient Registry" .
+
+<http://www.dtls.nl/organization/70199> a ns1:Organization ;
+    ns1:name "Glomerulonephritis registry" .
+
+<http://www.dtls.nl/organization/70366> a ns1:Organization ;
+    ns1:name "French registry of atypical child hemolytic uremic syndrome" .
+
+<http://www.dtls.nl/organization/70509> a ns1:Organization ;
+    ns1:name "French registry of autosomal recessive polycystic kidney disease" .
+
+<http://www.dtls.nl/organization/70664> a ns1:Organization ;
+    ns1:name "GDCN Patient Registries" .
+
+<http://www.dtls.nl/organization/71057> a ns1:Organization ;
+    ns1:name "Marfan Syndrome and Associated Pathologies registries" .
+
+<http://www.dtls.nl/organization/71236> a ns1:Organization ;
+    ns1:name "Leukofrance database and biobank" .
+
+<http://www.dtls.nl/organization/71400> a ns1:Organization ;
+    ns1:name "European LeukoDataBase" .
+
+<http://www.dtls.nl/organization/71542> a ns1:Organization ;
+    ns1:name "Ring14 Clinical database" .
+
+<http://www.dtls.nl/organization/71741> a ns1:Organization ;
+    ns1:name "French cystinosis registry" .
+
+<http://www.dtls.nl/organization/71896> a ns1:Organization ;
+    ns1:name "German vasculitis registry" .
+
+<http://www.dtls.nl/organization/72234> a ns1:Organization ;
+    ns1:name "Italian registry of congenital dyserythropoietic anemias" .
+
+<http://www.dtls.nl/organization/72365> a ns1:Organization ;
+    ns1:name "Registry of Osteogenesis Imperfecta" .
+
+<http://www.dtls.nl/organization/72496> a ns1:Organization ;
+    ns1:name "Registry of Multiple Ostechondromas" .
+
+<http://www.dtls.nl/organization/72618> a ns1:Organization ;
+    ns1:name "Registry of Ehlers-Danlos Syndrome" .
+
+<http://www.dtls.nl/organization/72744> a ns1:Organization ;
+    ns1:name "Tuscany registry of congenital defects" .
+
+<http://www.dtls.nl/organization/72875> a ns1:Organization ;
+    ns1:name "Italian registry of Creutzfeldt-Jakob disease and correlated syndromes" .
+
+<http://www.dtls.nl/organization/73014> a ns1:Organization ;
+    ns1:name "RIMM: Italian registry for myelofibrosis with myeloid metaplasia" .
+
+<http://www.dtls.nl/organization/73162> a ns1:Organization ;
+    ns1:name "FMF: Italian registry for familial mediterranean fever" .
+
+<http://www.dtls.nl/organization/73301> a ns1:Organization ;
+    ns1:name "Early Onset Ataxias" .
+
+<http://www.dtls.nl/organization/73425> a ns1:Organization ;
+    ns1:name "European registry of sporadic degenerative ataxia with adult onset" .
+
+<http://www.dtls.nl/organization/73889> a ns1:Organization ;
+    ns1:name "Registry of Dravet syndrome and syndromes related to mutations of the genes SCN1A and PCDH19" .
+
+<http://www.dtls.nl/organization/74051> a ns1:Organization ;
+    ns1:name "Italian Registry of  Kernicterus and hyperbilirubinemia" .
+
+<http://www.dtls.nl/organization/74577> a ns1:Organization ;
+    ns1:name "Registry of Neurofibromatosis" .
+
+<http://www.dtls.nl/organization/74708> a ns1:Organization ;
+    ns1:name "IBAHC: Italian registry for alternating hemiplegia of childhood" .
+
+<http://www.dtls.nl/organization/74839> a ns1:Organization ;
+    ns1:name "Registro Siciliano delle Talassemie ed Emoglobinopatie (Re.S.T.E.)" .
+
+<http://www.dtls.nl/organization/74970> a ns1:Organization ;
+    ns1:name "Italian Severe Chronic Neutropenia International Registry" .
+
+<http://www.dtls.nl/organization/75272> a ns1:Organization ;
+    ns1:name "Italian registry of Growth Hormone" .
+
+<http://www.dtls.nl/organization/75409> a ns1:Organization ;
+    ns1:name "Italian registry of Arnold-Chiari malformation" .
+
+<http://www.dtls.nl/organization/75540> a ns1:Organization ;
+    ns1:name "Friedreich's ataxia Italian patient registry" .
+
+<http://www.dtls.nl/organization/75679> a ns1:Organization ;
+    ns1:name "Italian myelodysplastic syndromes registry" .
+
+<http://www.dtls.nl/organization/75809> a ns1:Organization ;
+    ns1:name "Italian registry of maturity onset diabetes of the young" .
+
+<http://www.dtls.nl/organization/75948> a ns1:Organization ;
+    ns1:name "Italian genetic movement disorders registry" .
+
+<http://www.dtls.nl/organization/76079> a ns1:Organization ;
+    ns1:name "Italian registry of infants with congenital hypothyroidism" .
+
+<http://www.dtls.nl/organization/76655> a ns1:Organization ;
+    ns1:name "Membranous Nephropathy Registry" .
+
+<http://www.dtls.nl/organization/76957> a ns1:Organization ;
+    ns1:name "Bank for the Diagnosis and Research on Neuromuscular Disorders (NHMGB), Cardiomyology and Medical Ge" .
+
+<http://www.dtls.nl/organization/77088> a ns1:Organization ;
+    ns1:name "Genomic and Genetic  Disorders Biobank" .
+
+<http://www.dtls.nl/organization/77219> a ns1:Organization ;
+    ns1:name "Biobank of skeletal muscle, peripheral nerve, DNA and cell cultures" .
+
+<http://www.dtls.nl/organization/77350> a ns1:Organization ;
+    ns1:name "Galliera Genetic Bank" .
+
+<http://www.dtls.nl/organization/77489> a ns1:Organization ;
+    ns1:name "Neuromuscular Bank of Tissues and DNA samples" .
+
+<http://www.dtls.nl/organization/77630> a ns1:Organization ;
+    ns1:name "Cells lines and DNA bank of Rett syndrome and other X-linked mental retardation" .
+
+<http://www.dtls.nl/organization/77761> a ns1:Organization ;
+    ns1:name "Parkinson Institute Biobank" .
+
+<http://www.dtls.nl/organization/78002> a ns1:Organization ;
+    ns1:name "Italian Registry of Myotonic Dystrophy" .
+
+<http://www.dtls.nl/organization/78285> a ns1:Organization ;
+    ns1:name "Beta-hemolytic streptococcal infections" .
+
+<http://www.dtls.nl/organization/79757> a ns1:Organization ;
+    ns1:name "Italian registry for cri du chat syndrome (monosomy 5p)" .
+
+<http://www.dtls.nl/organization/79951> a ns1:Organization ;
+    ns1:name "Behçet's disease registry" .
+
+<http://www.dtls.nl/organization/80112> a ns1:Organization ;
+    ns1:name "Undifferentiated connective-tissue disease" .
+
+<http://www.dtls.nl/organization/80320> a ns1:Organization ;
+    ns1:name "Italian registry of hypertrophic cardiomyopathy in Anderson-Fabry disease" .
+
+<http://www.dtls.nl/organization/80509> a ns1:Organization ;
+    ns1:name "Tuberous sclerosis complex Natural History Database" .
+
+<http://www.dtls.nl/organization/80677> a ns1:Organization ;
+    ns1:name "Spanish Registry of Neuromuscular Diseases" .
+
+<http://www.dtls.nl/organization/80830> a ns1:Organization ;
+    ns1:name "Spanish alpha-1 antitrypsin deficiency registry" .
+
+<http://www.dtls.nl/organization/80961> a ns1:Organization ;
+    ns1:name "Spanish Registry of Gastroenteropancreatic Endocrine Tumors" .
+
+<http://www.dtls.nl/organization/81092> a ns1:Organization ;
+    ns1:name "Hiperoxaluria primaria" .
+
+<http://www.dtls.nl/organization/81294> a ns1:Organization ;
+    ns1:name "Atypical Hemolytic Uremic Syndrome (aHUS) and C3 Glomerulopathy (C3G) Database" .
+
+<http://www.dtls.nl/organization/81424> a ns1:Organization ;
+    ns1:name "Spanish Gaucher's disease registry" .
+
+<http://www.dtls.nl/organization/81620> a ns1:Organization ;
+    ns1:name "Registro de familias afectadas por el Síndrome X Frágil" .
+
+<http://www.dtls.nl/organization/81759> a ns1:Organization ;
+    ns1:name "Spanish patient registry of hereditary retinal dystrophy" .
+
+<http://www.dtls.nl/organization/81938> a ns1:Organization ;
+    ns1:name "Hemobase: Hemophilia mutations registry in Spanish population" .
+
+<http://www.dtls.nl/organization/82113> a ns1:Organization ;
+    ns1:name "Spanish patient registry of transmissible spongiform encephalopathies" .
+
+<http://www.dtls.nl/organization/82402> a ns1:Organization ;
+    ns1:name "Spanish Registry of Familial Adenomatous Polyposis" .
+
+<http://www.dtls.nl/organization/82561> a ns1:Organization ;
+    ns1:name "Spanish Registry of Behçet Disease" .
+
+<http://www.dtls.nl/organization/82717> a ns1:Organization ;
+    ns1:name "Spanish patient registry of hereditary angioedema" .
+
+<http://www.dtls.nl/organization/83045> a ns1:Organization ;
+    ns1:name "Spanish registry of primary immunodeficiencies" .
+
+<http://www.dtls.nl/organization/83217> a ns1:Organization ;
+    ns1:name "Italian registry for MYH9-related thrombocytopenia" .
+
+<http://www.dtls.nl/organization/83375> a ns1:Organization ;
+    ns1:name "Italian register multiple endocrine neoplasia" .
+
+<http://www.dtls.nl/organization/83836> a ns1:Organization ;
+    ns1:name "Rare Bleeding Disorders Database" .
+
+<http://www.dtls.nl/organization/84523> a ns1:Organization ;
+    ns1:name "Bulgarian registry of patients with thalassaemia major" .
+
+<http://www.dtls.nl/organization/84654> a ns1:Organization ;
+    ns1:name "National registry of patients with Crohn disease in Bulgaria" .
+
+<http://www.dtls.nl/organization/84778> a ns1:Organization ;
+    ns1:name "National registry of patients with hereditary angioedema in Bulgaria" .
+
+<http://www.dtls.nl/organization/84902> a ns1:Organization ;
+    ns1:name "National registry of adult patients with chronic myeloid leukemia" .
+
+<http://www.dtls.nl/organization/85026> a ns1:Organization ;
+    ns1:name "National registry of patients with mucopolysaccharidosis type II" .
+
+<http://www.dtls.nl/organization/85150> a ns1:Organization ;
+    ns1:name "National registry of Wilson disease patients in Bulgaria" .
+
+<http://www.dtls.nl/organization/85573> a ns1:Organization ;
+    ns1:name "National registry of patients with phenylketonuria" .
+
+<http://www.dtls.nl/organization/85759> a ns1:Organization ;
+    ns1:name "National registry of patients with Gaucher disease" .
+
+<http://www.dtls.nl/organization/85907> a ns1:Organization ;
+    ns1:name "National registry of patients with primary immunodeficiencies" .
+
+<http://www.dtls.nl/organization/86406> a ns1:Organization ;
+    ns1:name "Spanish Overgrowth Syndrome Registry" .
+
+<http://www.dtls.nl/organization/86597> a ns1:Organization ;
+    ns1:name "Spanish Registry of Pulmonary Arterial Hypertension (REHAP)" .
+
+<http://www.dtls.nl/organization/86933> a ns1:Organization ;
+    ns1:name "European Porphyria Registry (EPR)" .
+
+<http://www.dtls.nl/organization/87919> a ns1:Organization ;
+    ns1:name "Newcastle MRC Biobank for Rare and Neuromuscular Diseases" .
+
+<http://www.dtls.nl/organization/88051> a ns1:Organization ;
+    ns1:name "Malta BioBank" .
+
+<http://www.dtls.nl/organization/89057> a ns1:Organization ;
+    ns1:name "Italian Registry of Hemolytic-Uremic Syndrome" .
+
+<http://www.dtls.nl/organization/89221> a ns1:Organization ;
+    ns1:name "Italian Registry of Congenital Coagulopathies" .
+
+<http://www.dtls.nl/organization/89387> a ns1:Organization ;
+    ns1:name "NHR: National Haemoglobinopathy Registry" .
+
+<http://www.dtls.nl/organization/89518> a ns1:Organization ;
+    ns1:name "Haemoglobinopathies - database" .
+
+<http://www.dtls.nl/organization/89649> a ns1:Organization ;
+    ns1:name "National Registry for Haemoglobinopathies in Greece (NRHG)" .
+
+<http://www.dtls.nl/organization/89869> a ns1:Organization ;
+    ns1:name "Haemoglobinopathy Registry" .
+
+<http://www.dtls.nl/organization/90027> a ns1:Organization ;
+    ns1:name "Registry for Haemoglobinopathies" .
+
+<http://www.dtls.nl/organization/90185> a ns1:Organization ;
+    ns1:name "Patient registry of the German Network for Systemic Scleroderma" .
+
+<http://www.dtls.nl/organization/90353> a ns1:Organization ;
+    ns1:name "Veneto Region’s rare diseases registry" .
+
+<http://www.dtls.nl/organization/90521> a ns1:Organization ;
+    ns1:name "Lymphomas Database" .
+
+<http://www.dtls.nl/organization/90673> a ns1:Organization ;
+    ns1:name "Neuroendocrine Tumors - ENETS registry" .
+
+<http://www.dtls.nl/organization/90833> a ns1:Organization ;
+    ns1:name "Congenital Malformations Registry" .
+
+<http://www.dtls.nl/organization/90984> a ns1:Organization ;
+    ns1:name "Registry of Ehlers Danlos Syndrome (RED)" .
+
+<http://www.dtls.nl/organization/91228> a ns1:Organization ;
+    ns1:name "Registry of Osteogenesis Imperfecta (ROI)" .
+
+<http://www.dtls.nl/organization/91466> a ns1:Organization ;
+    ns1:name "Tuscany region’s rare diseases registry" .
+
+<http://www.dtls.nl/organization/92258> a ns1:Organization ;
+    ns1:name "German registry of congenital dyserythropoietic anemias (CDA)" .
+
+<http://www.dtls.nl/organization/93001> a ns1:Organization ;
+    ns1:name "UPA! Duchenne Registry" .
+

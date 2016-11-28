@@ -1,0 +1,72 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix lang: <http://id.loc.gov/vocabulary/iso639-1/> .
+
+<http://www.dtls.nl/fdp/biobank/77350-collection1/distributionTurtle> dct:hasVersion "1.0" ;
+	dct:identifier "distributionTurtle" ;
+	dct:issued "2016-02-01"^^xsd:date ;
+	dct:license <http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0> ;
+	dct:modified "2016-07-07"^^xsd:date ;
+	dct:title "Ring14 biobank turtle distribution"@en ;
+	a dcat:Distribution ;
+	rdfs:label "Ring14 biobank turtle distribution"@en ;
+        dct:description "Ring14 biobank turtle distribution"@en ;
+	dcat:downloadURL <http://semlab1.liacs.nl:8080/rdc-demo-dataset/RING_14_dummy-Biobank.ttl> ;
+	dcat:mediaType "text/turtle" .
+
+<http://www.dtls.nl/fdp/biobank/77350-collection1/ldf> dct:description "Ring14 biobank linked data fragment distribution"@en ;
+	dct:hasVersion "1.0" ;
+	dct:identifier "ldf" ;
+	dct:license <http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0> ;
+	dct:title "Ring14 biobank linked data fragment distribution"@en ;
+        rdfs:label "Ring14 biobank linked data fragment distribution"@en ;
+	a dcat:Distribution ;
+	dcat:accessURL <http://dev-vm.fair-dtls.surf-hosted.nl:5050/ring14-biosample> .
+
+<http://www.dtls.nl/fdp/biobank/77350-collection1/csv> dct:description "Ring14 biobank csv distribution"@en ;
+	dct:hasVersion "1.0" ;
+	dct:identifier "csv" ;
+	dct:license <http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0> ;
+	dct:title "Ring14 biobank csv distribution"@en ;
+        rdfs:label "Ring14 biobank csv distribution"@en ;
+	a dcat:Distribution ;
+        dcat:mediaType "text/csv" ;
+	dcat:downloadURL <https://git.lumc.nl/biosemantics/ring14-fdp-metadata/raw/master/rml/biobank/RING_14_dummy-Biobank.csv> .
+
+
+<http://www.dtls.nl/fdp/patient-registry/71542-collection1/distributionTurtle> dct:hasVersion "1.0" ;
+	dct:identifier "distributionTurtle" ;
+	dct:issued "2016-02-01"^^xsd:date ;
+	dct:license <http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0> ;
+	dct:modified "2016-07-07"^^xsd:date ;
+	dct:title "Ring14 patient registry turtle distribution"@en ;
+        dct:description "Ring14 patient registry turtle distribution"@en ;
+	a dcat:Distribution ;
+	rdfs:label "Ring14 patient registry turtle distribution"@en ;
+	dcat:downloadURL <http://semlab1.liacs.nl:8080/rdc-demo-dataset/RING_14_dummy-Person.ttl> ;
+	dcat:mediaType "text/turtle" .
+
+<http://www.dtls.nl/fdp/patient-registry/71542-collection1/ldf> dct:description "Ring14 patient registry linked data fragment distribution"@en ;
+	dct:hasVersion "1.0" ;
+	dct:identifier "ldf" ;
+	dct:license <http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0> ;
+	dct:title "Ring14 patient registry linked data fragment distribution"@en ;
+        rdfs:label "Ring14 patient registry linked data fragment distribution"@en ;
+	a dcat:Distribution ;
+	dcat:accessURL <http://dev-vm.fair-dtls.surf-hosted.nl:5050/ring14-person> .
+
+<http://www.dtls.nl/fdp/patient-registry/71542-collection1/csv> dct:hasVersion "1.0" ;
+	dct:identifier "csv" ;
+        dct:description "Ring14 patient registry csv distribution"@en;
+	dct:issued "2016-02-01"^^xsd:date ;
+	dct:license <http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0> ;
+	dct:modified "2016-07-07"^^xsd:date ;
+	dct:title "Ring14 patient registry csv distribution"@en ;
+	a dcat:Distribution ;
+	rdfs:label "Ring14 patient registry csv distribution"@en ;
+	dcat:downloadURL <https://git.lumc.nl/biosemantics/ring14-fdp-metadata/raw/master/rml/patient-reg/RING_14_dummy-Person.csv> ;
+	dcat:mediaType "text/csv" .
