@@ -18,7 +18,6 @@
 	dct:issued "2016-10-27"^^xsd:date ;
 	dct:language lang:en ;
 	dct:modified "2016-10-27"^^xsd:date ;
-	dct:publisher <http://orcid.org/0000-0002-1215-167X> , <http://orcid.org/0000-0002-6816-4445> ;
 	dct:title "GoNL human variants"@en ;
 	a dcat:Dataset ;
 	rdfs:label "GoNL human variants"@en ;
