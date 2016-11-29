@@ -126,12 +126,12 @@ public class MetadataController {
         return responseBody;
     }
     
-    @ApiOperation(value = "Datarecord metadata")
-    @RequestMapping(value = "/datarecord/{datarecordID}", 
-            method = RequestMethod.GET,
-            produces = { "text/turtle", 
-        "application/ld+json", "application/rdf+xml", "text/n3"}
-    )
+//    @ApiOperation(value = "Datarecord metadata")
+//    @RequestMapping(value = "/datarecord/{datarecordID}", 
+//            method = RequestMethod.GET,
+//            produces = { "text/turtle", 
+//        "application/ld+json", "application/rdf+xml", "text/n3"}
+//    )
     public String getDataRecordMetaData(@PathVariable final String datarecordID, 
             HttpServletRequest request,
                     HttpServletResponse response) {  
