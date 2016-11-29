@@ -1,0 +1,35 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix lang: <http://id.loc.gov/vocabulary/iso639-1/> .
+@prefix foaf: <http://xmlns.com/foaf/> .
+@prefix fdp: <http://rdf.biosemantics.org/ontologies/fdp-o#> .
+@prefix sio: <http://semanticscience.org/resource/> .
+
+
+<BASE_URI> dct:publisher <http://biosemantics.humgen.nl> ;
+	dct:description "Fantom5 transcriptomics dataset, which contains info about human transcription start site"@en ;
+        dct:hasVersion "1.0" ;
+	fdp:metadataIdentifier <BASE_URI/fantom5-metadataID> ;
+	fdp:metadataIssued "2016-11-01"^^xsd:date ;
+	fdp:metadataModified "2016-11-01"^^xsd:date ;
+	dct:issued "2016-11-01"^^xsd:date ;
+	dct:language lang:en ;
+	dct:modified "2016-11-01"^^xsd:date ;
+	dct:title "Fantom5 human transcription start site"@en ;
+	a dcat:Dataset ;
+	rdfs:label "Fantom5 human transcription start site"@en ;
+	dcat:distribution <BASE_URI/fantom5-sparql>, <BASE_URI/fantom5-html>, <BASE_URI/fantom5-textfile> ;
+	dcat:keyword "fantom5" , "tss", "transcription start site", "transcriptomics" ;
+	dcat:landingPage <http://fantom.gsc.riken.jp/>  ;
+	dcat:theme <http://purl.obolibrary.org/obo/SO_0000315>, <http://purl.obolibrary.org/obo/SO_0001917>   .
+
+<http://biosemantics.humgen.nl> a foaf:Organization;
+	foaf:name "Biosemantics LUMC"@en.
+
+
+<BASE_URI/fantom5-metadataID> a <http://edamontology.org/data_0842>;
+	dct:identifier "fantom5-metadataID".

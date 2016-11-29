@@ -11,8 +11,8 @@
 
 <BASE_URI> dct:hasVersion "1.0" ;
 	fdp:metadataIdentifier <BASE_URI/77350-collection1-distributionTurtle-metadataID> ;
-	fdp:metadataIssued "2016-10-27"^^xsd:date ;
-	fdp:metadataModified "2016-10-27"^^xsd:date ;
+	fdp:metadataIssued "2016-10-30"^^xsd:date ;
+	fdp:metadataModified "2016-10-30"^^xsd:date ;
 	dct:issued "2016-05-27T10:16:21+00:00"^^xsd:dateTime ;
 	dct:license <http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0> ;
 	dct:modified "2016-05-27T10:16:21+00:00"^^xsd:dateTime ;

@@ -1,0 +1,34 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix lang: <http://id.loc.gov/vocabulary/iso639-1/> .
+@prefix foaf: <http://xmlns.com/foaf/> .
+@prefix fdp: <http://rdf.biosemantics.org/ontologies/fdp-o#> .
+
+
+<BASE_URI> dct:publisher	<http://www.ring14.org> ;
+	dct:description "Ring14 patient registry clinical database"@en ;
+        dct:hasVersion "1.0" ;
+	fdp:metadataIdentifier <BASE_URI/71542-collection1-metadataID> ;
+	fdp:metadataIssued "2016-10-29"^^xsd:date ;
+	fdp:metadataModified "2016-10-29"^^xsd:date ;
+	dct:issued "2016-05-27"^^xsd:dateTime ;
+	dct:language lang:en ;
+	dct:modified "2016-05-27"^^xsd:dateTime ;
+	dct:title "Ring14 Clinical database"@en ;
+	a dcat:Dataset ;
+	rdfs:label "Ring14 Clinical database"@en ;
+	dcat:distribution <BASE_URI/71542-collection1-distributionTurtle> , <BASE_URI/71542-collection1-ldf> ;
+	dcat:keyword "Ring14 Clinical database" , "registry" ;
+	dcat:landingPage <http://www.ring14.org/eng/120/database/>  ;
+	dcat:theme <http://dbpedia.org/resource/Disease_registry> , <http://www.orpha.net/ORDO/Orphanet_1440> .
+
+<http://www.ring14.org> a foaf:Organization;
+	foaf:name "RING14 INTERNATIONAL ONLUS"@en.
+
+
+<BASE_URI/71542-collection1-metadataID> a <http://edamontology.org/data_0842>;
+	dct:identifier "71542-collection1-metadataID".

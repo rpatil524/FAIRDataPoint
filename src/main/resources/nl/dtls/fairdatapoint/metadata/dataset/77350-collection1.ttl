@@ -13,14 +13,14 @@
 	dct:description "Galliera Genetic Bank dataset"@en;
         dct:hasVersion "1.0" ;
 	fdp:metadataIdentifier <BASE_URI/77350-collection1-metadataID> ;
-	fdp:metadataIssued "2016-10-27"^^xsd:date ;
-	fdp:metadataModified "2016-10-27"^^xsd:date ;
-	dct:issued "2016-10-27"^^xsd:date ;
+	fdp:metadataIssued "2016-10-30"^^xsd:date ;
+	fdp:metadataModified "2016-10-30"^^xsd:date ;
+	dct:issued "2016-10-30"^^xsd:date ;
 	dct:language lang:en ;
-	dct:modified "2016-10-27"^^xsd:date ;
-	dct:title "Galliera Genetic Bank"@en
+	dct:modified "2016-10-30"^^xsd:date ;
+	dct:title "Galliera Genetic Bank"@en ;
 	a dcat:Dataset ;
-	rdfs:label "Galliera Genetic Bank"@en
+	rdfs:label "Galliera Genetic Bank"@en ;
 	dcat:distribution <BASE_URI/77350-collection1-distributionTurtle> , <BASE_URI/77350-collection1-ldf> ;
 	dcat:keyword "Galliera Genetic Bank" , "biobank";
 	dcat:landingPage <http://ggb.galliera.it> ;
