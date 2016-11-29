@@ -36,11 +36,11 @@
 	rdfs:label "DTL FAIR Data Point"@en .
 
 
-<BASE_URI/fdp-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/fdp-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "fdp-metadataID".
 
 
-<BASE_URI/fdp-repositoryID> a <http://edamontology.org/data_0842>;
+<BASE_URI/fdp-repositoryID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "fdp-repositoryID".
 
 

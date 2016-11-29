@@ -30,5 +30,5 @@
 	foaf:name "RING14 INTERNATIONAL ONLUS"@en.
 
 
-<BASE_URI/71542-collection1-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/71542-collection1-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "71542-collection1-metadataID".

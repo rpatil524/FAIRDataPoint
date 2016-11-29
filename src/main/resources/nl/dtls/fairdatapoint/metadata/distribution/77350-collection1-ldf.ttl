@@ -21,5 +21,5 @@
 	dct:title "Ring14 biobank linked data fragment distribution"@en;
 	dcat:accessURL <http://dev-vm.fair-dtls.surf-hosted.nl:5050/ring14-biosample> .
 
-<BASE_URI/77350-collection1-ldf-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/77350-collection1-ldf-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "77350-collection1-ldf-metadataID".

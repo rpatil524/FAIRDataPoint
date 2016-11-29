@@ -23,6 +23,6 @@
 	dcat:mediaType "application/gzip"  .
 
 
-<BASE_URI/textfile-gzip-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/textfile-gzip-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "textfile-gzip-metadataID".
 

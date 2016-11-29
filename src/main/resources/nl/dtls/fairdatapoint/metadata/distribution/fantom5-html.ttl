@@ -22,6 +22,6 @@
 	dcat:accessURL <http://fantom.gsc.riken.jp/5/tet>  ;
 	dcat:mediaType "text/html" .
 
-<BASE_URI/fantom5-html-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/fantom5-html-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "fantom5-html-metadataID".
 

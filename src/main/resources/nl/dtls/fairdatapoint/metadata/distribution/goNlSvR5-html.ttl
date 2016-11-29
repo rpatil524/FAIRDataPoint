@@ -27,5 +27,5 @@
 	foaf:name "The Genome of the Netherlands"@en.
 
 
-<BASE_URI/html-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/html-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "html-metadataID".

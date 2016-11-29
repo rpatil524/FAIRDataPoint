@@ -22,6 +22,6 @@
         dcat:mediaType "application/gzip";
 	dcat:downloadURL  <http://fantom.gsc.riken.jp/5/datafiles/latest/extra/CAGE_peaks/hg19.cage_peak_phase1and2combined_tpm_ann.osc.txt.gz> .
 
-<BASE_URI/fantom5-textfile-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/fantom5-textfile-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "fantom5-textfile-metadataID".
 

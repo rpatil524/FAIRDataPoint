@@ -22,6 +22,6 @@
 	dcat:accessURL <http://triplestore.fair-dtls.vm.surfsara.nl:8890/sparql>  ;
 	dcat:mediaType "application/json", "text/turtle", "text/html" .
 
-<BASE_URI/fantom5-sparql-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/fantom5-sparql-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "fantom5-sparql-metadataID".
 

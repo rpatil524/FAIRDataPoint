@@ -30,5 +30,5 @@
 <http://biosemantics.humgen.nl> a foaf:Organization;
 	foaf:name "Biosemantics LUMC"@en.
 
-<BASE_URI/gene-disease-association-lumc-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/gene-disease-association-lumc-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "gene-disease-association-lumc-metadataID".

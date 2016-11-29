@@ -22,5 +22,5 @@
 	dcat:downloadURL  <http://semlab1.liacs.nl:8080/rdc-demo-dataset/RING_14_dummy-Person.ttl> ;
 	dcat:mediaType "text/turtle"  .
 
-<BASE_URI/71542-collection1-distributionTurtle-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/71542-collection1-distributionTurtle-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "71542-collection1-distributionTurtle-metadataID".

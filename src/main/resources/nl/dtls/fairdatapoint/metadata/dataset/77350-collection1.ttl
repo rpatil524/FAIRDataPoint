@@ -31,5 +31,5 @@
 	foaf:name "Galliera Genetic Bank"@en.
 
 
-<BASE_URI/77350-collection1-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/77350-collection1-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "77350-collection1-metadataID".

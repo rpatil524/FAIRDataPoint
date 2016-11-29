@@ -31,5 +31,5 @@
 	foaf:name "Biosemantics LUMC"@en.
 
 
-<BASE_URI/fantom5-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/fantom5-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "fantom5-metadataID".

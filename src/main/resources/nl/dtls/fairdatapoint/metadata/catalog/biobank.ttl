@@ -28,6 +28,6 @@
 	foaf:name "DTLS"@en.
 
 
-<BASE_URI/biobank-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/biobank-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "biobank-metadataID".
 

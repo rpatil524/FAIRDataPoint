@@ -28,5 +28,5 @@
 	foaf:name "DTLS"@en.
 
 
-<BASE_URI/transcriptomics-metadataID> a <http://edamontology.org/data_0842>;
+<BASE_URI/transcriptomics-metadataID> a <http://purl.org/spar/datacite/Identifier>;
 	dct:identifier "transcriptomics-metadataID".
