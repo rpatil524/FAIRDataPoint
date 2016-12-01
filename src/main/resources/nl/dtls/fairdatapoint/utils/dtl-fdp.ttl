@@ -23,5 +23,5 @@
         dct:identifier "fdp" ;
         dct:hasVersion "1.0" ;
         dct:license <http://purl.org/NET/rdflicense/MIT1.0>;
-	<http://xmlns.com/foaf/0.1/landingpage> <http://www.dtls.nl/fdp/swagger-ui.html> .
+	<http://xmlns.com/foaf/0.1/0.1/landingpage> <http://www.dtls.nl/fdp/swagger-ui.html> .
         
