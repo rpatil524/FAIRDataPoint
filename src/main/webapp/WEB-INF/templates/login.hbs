@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Login -->
+        <link rel="stylesheet" href="fdp/resources/css/login.css" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+        </script>
+        <title>Login</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <form class="form-signin" method="POST">       
+                <h2 class="form-signin-heading">Please login</h2>
+                <input type="text" class="form-control" name="userName" placeholder="Username" required="" autofocus="" />
+                <input type="password" class="form-control" name="password" placeholder="Password" required=""/> 
+                <button class="btn btn-lg btn-primary btn-block" type="submit" value="/">Login</button>               
+                {{#if error}}    
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error: </span>
+                        {{error}}
+                  </div>
+                {{/if}}
+            </form>
+        </div>
+    </body>
+</html>

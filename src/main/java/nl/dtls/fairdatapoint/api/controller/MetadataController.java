@@ -70,6 +70,7 @@ import nl.dtls.fairdatapoint.service.FairMetaDataService;
 import nl.dtls.fairdatapoint.service.FairMetadataServiceException;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -131,9 +132,27 @@ public class MetadataController {
     @ApiIgnore
     @RequestMapping(method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getHtmlFdpMetadata(HttpServletRequest request) throws
+    public ModelAndView getLoginFdpMetadata(HttpServletRequest request) throws
             FairMetadataServiceException, ResourceNotFoundException,
             MetadataException {
+        ModelAndView mav = new ModelAndView("login");
+        mav.addObject("error", null);
+        return mav;
+    }
+    
+    @ApiIgnore
+    @RequestMapping(method = RequestMethod.POST,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getHtmlFdpMetadata(HttpServletRequest request, 
+             @ModelAttribute("login") Login login) throws
+            FairMetadataServiceException, ResourceNotFoundException,
+            MetadataException {
+        if(!login.getUserName().equalsIgnoreCase("admin") || 
+                !login.getPassword().equalsIgnoreCase("admin")) {
+            ModelAndView mav = new ModelAndView("login");
+            mav.addObject("error", "Invalid username or password");
+            return mav;
+        }
         ModelAndView mav = new ModelAndView("repository");
         LOGGER.info("Request to get FDP metadata");
         LOGGER.info("GET : " + request.getRequestURL());

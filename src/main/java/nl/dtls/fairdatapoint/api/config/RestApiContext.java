@@ -134,6 +134,10 @@ public class RestApiContext extends WebMvcConfigurerAdapter {
         registry.setOrder(Integer.MIN_VALUE + 2).
                 addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        
+        registry.setOrder(Integer.MIN_VALUE + 3).
+                addResourceHandler("/resources/**")
+                .addResourceLocations("/WEB-INF/static/");
     }
 
     @Override
