@@ -123,6 +123,7 @@ public class FairMetaDataServiceImpl implements FairMetaDataService {
     public void storeFDPMetaData(@Nonnull FDPMetadata metadata)
             throws FairMetadataServiceException, MetadataException {
         Preconditions.checkNotNull(metadata, "FDPMetadata must not be null.");
+        metadata.setCatalogs(null);
         storeMetadata(metadata);
     }
 
@@ -135,6 +136,7 @@ public class FairMetaDataServiceImpl implements FairMetaDataService {
 //        Preconditions.checkState(isSubjectURIExist(metadata.getParentURI()),
 //                "The fdp URI doesn't exist in the repository. "
 //                + "Please try with valid fdp URI");
+        metadata.setDatasets(null);
         storeMetadata(metadata);
     }
 
@@ -147,6 +149,7 @@ public class FairMetaDataServiceImpl implements FairMetaDataService {
         Preconditions.checkState(isSubjectURIExist(metadata.getParentURI()),
                 "The catalogy URI doesn't exist in the repository. "
                 + "Please try with valid catalogy URI");
+        metadata.setDistributions(null);
         storeMetadata(metadata);
     }
 
