@@ -179,7 +179,8 @@ public class FairMetaDataServiceImpl implements FairMetaDataService {
                 metadata.setIssued(RDFUtils.getCurrentTime());
             }
             metadata.setModified(RDFUtils.getCurrentTime());
-            storeManager.storeStatements(MetadataUtils.getStatements(metadata));
+            storeManager.storeStatements(MetadataUtils.getStatements(metadata), 
+                    metadata.getUri());
             updateParentResource(metadata);
         } catch (StoreManagerException | DatatypeConfigurationException ex) {
             LOGGER.error("Error storing distribution metadata");
@@ -216,7 +217,7 @@ public class FairMetaDataServiceImpl implements FairMetaDataService {
                     DCTERMS.MODIFIED, null);
             stmts.add(f.createStatement(metadata.getParentURI(),
                     DCTERMS.MODIFIED, RDFUtils.getCurrentTime()));
-            storeManager.storeStatements(stmts);
+            storeManager.storeStatements(stmts, metadata.getParentURI());
         } catch (StoreManagerException | DatatypeConfigurationException ex) {
             LOGGER.error("Error updating parent resource :" + ex.getMessage());
         }
@@ -226,12 +227,11 @@ public class FairMetaDataServiceImpl implements FairMetaDataService {
             FairMetadataServiceException, ResourceNotFoundException {
         try {
             Preconditions.checkNotNull(uri, "Resource uri not be null.");
-            List<Statement> statements = storeManager.retrieveResource(uri);
+            List<Statement> statements = storeManager.retrieveResource(uri, uri);
             if (statements.isEmpty()) {
                 String msg = ("No metadata found for the uri : " + uri);
                 throw (new ResourceNotFoundException(msg));
             }
-            addAddtionalResource(statements);
             return statements;
         } catch (StoreManagerException ex) {
             LOGGER.error("Error retrieving fdp metadata from the store");
@@ -257,29 +257,6 @@ public class FairMetaDataServiceImpl implements FairMetaDataService {
             throw (new FairMetadataServiceException(ex.getMessage()));
         }
         return isURIExist;
-    }
-
-    private void addAddtionalResource(List<Statement> statements) throws
-            StoreManagerException {
-        List<Statement> otherResources = new ArrayList<>();
-        for (Statement st : statements) {
-            IRI predicate = st.getPredicate();
-            Value object = st.getObject();
-            if (predicate.equals(FDP.METADATA_IDENTIFIER)) {
-                otherResources.addAll(storeManager.retrieveResource(
-                        (IRI) object));
-            } else if (predicate.equals(R3D.INSTITUTION)) {
-                otherResources.addAll(storeManager.retrieveResource(
-                        (IRI) object));
-            } else if (predicate.equals(DCTERMS.PUBLISHER)) {
-                otherResources.addAll(storeManager.retrieveResource(
-                        (IRI) object));
-            } else if (predicate.equals(R3D.REPO_IDENTIFIER)) {
-                otherResources.addAll(storeManager.retrieveResource(
-                        (IRI) object));
-            }
-        }
-        statements.addAll(otherResources);
     }
 
     @Override

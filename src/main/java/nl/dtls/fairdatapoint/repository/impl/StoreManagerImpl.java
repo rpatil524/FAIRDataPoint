@@ -67,17 +67,23 @@ public class StoreManagerImpl implements StoreManager {
      * Retrieve all statements for an given URI
      *
      * @param uri Valid RDF URI as a string
+     * @param contxt
      * @return List of RDF statements
      * @throws StoreManagerException
      */
     @Override
-    public List<Statement> retrieveResource(@Nonnull IRI uri)
+    public List<Statement> retrieveResource(@Nonnull IRI uri, Resource contxt)
             throws StoreManagerException {
         Preconditions.checkNotNull(uri, "URI must not be null.");
         LOGGER.info("Get statements for the URI <" + uri.toString() + ">");
         try (RepositoryConnection conn = getRepositoryConnection()) {
-            RepositoryResult<Statement> queryResult = conn.getStatements(uri,
-                    null, null, false);
+            RepositoryResult<Statement> queryResult;
+            if (contxt != null){
+                queryResult = conn.getStatements(null, null, null, false, 
+                        contxt);
+            } else {
+                queryResult = conn.getStatements(uri, null, null, false);
+            }
             List<Statement> statements = new ArrayList();
             while (queryResult.hasNext()) {
                 statements.add(queryResult.next());
@@ -113,12 +119,17 @@ public class StoreManagerImpl implements StoreManager {
     /**
      * Store string RDF to the repository
      *
+     * @param contxt
      */
     @Override
-    public void storeStatements(List<Statement> statements) throws
+    public void storeStatements(List<Statement> statements, Resource contxt) throws
             StoreManagerException {
         try (RepositoryConnection conn = getRepositoryConnection()) {
-            conn.add(statements);
+            if (contxt != null){
+               conn.add(statements, contxt); 
+            } else {
+                conn.add(statements);
+            }            
         } catch (RepositoryException e) {
             throw (new StoreManagerException("Error storing statements :"
                     + e.getMessage()));

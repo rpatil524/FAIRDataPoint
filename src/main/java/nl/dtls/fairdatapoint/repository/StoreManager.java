@@ -43,15 +43,16 @@ import org.eclipse.rdf4j.model.Value;
  */
 public interface StoreManager {
     
-    List<Statement> retrieveResource(IRI uri) 
+    List<Statement> retrieveResource(IRI uri, Resource contxt) 
             throws StoreManagerException;
     /**
      * Store RDF from openRDF model to the repository
      * 
      * @param statements
+     * @param rsrc
      * @throws StoreManagerException 
      */
-    void storeStatements (List<Statement> statements) throws StoreManagerException;
+    void storeStatements (List<Statement> statements, Resource rsrc) throws StoreManagerException;
     /**
      * Remove a statement from the repository
      * 
