@@ -57,12 +57,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import nl.dtl.fairmetadata4j.io.MetadataException;
 import nl.dtl.fairmetadata4j.io.MetadataParserException;
+import nl.dtl.fairmetadata4j.model.AccessRights;
 import nl.dtl.fairmetadata4j.model.Agent;
 import nl.dtl.fairmetadata4j.model.CatalogMetadata;
 import nl.dtl.fairmetadata4j.model.DatasetMetadata;
 import nl.dtl.fairmetadata4j.model.DistributionMetadata;
 import nl.dtl.fairmetadata4j.model.FDPMetadata;
 import nl.dtl.fairmetadata4j.model.Identifier;
+import nl.dtl.fairmetadata4j.model.Metadata;
 import nl.dtl.fairmetadata4j.utils.MetadataUtils;
 import nl.dtl.fairmetadata4j.utils.vocabulary.DataCite;
 import nl.dtls.fairdatapoint.api.controller.utils.LoggerUtils;
@@ -71,17 +73,17 @@ import nl.dtls.fairdatapoint.service.FairMetadataServiceException;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * Handle fair metadata api calls
- * 
+ *
  * @author Rajaram Kaliyaperumal <rr.kaliyaperumal@gmail.com>
  * @author Kees Burger <kees.burger@dtls.nl>
  * @since 2015-11-19
  * @version 0.1
  */
-
 @RestController
 @Api(description = "FDP metadata")
 @RequestMapping(value = "/")
@@ -93,6 +95,8 @@ public class MetadataController {
     private FairMetaDataService fairMetaDataService;
     private boolean isFDPMetaDataAvailable = false;
     private final ValueFactory valueFactory = SimpleValueFactory.getInstance();
+    private static Metadata metadata;
+    private static String view;
 
     /**
      * To handle GET FDP metadata request. (Note:) The first value in the
@@ -132,27 +136,9 @@ public class MetadataController {
     @ApiIgnore
     @RequestMapping(method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getLoginFdpMetadata(HttpServletRequest request) throws
+    public ModelAndView getHtmlFdpMetadata(HttpServletRequest request) throws
             FairMetadataServiceException, ResourceNotFoundException,
             MetadataException {
-        ModelAndView mav = new ModelAndView("login");
-        mav.addObject("error", null);
-        return mav;
-    }
-    
-    @ApiIgnore
-    @RequestMapping(method = RequestMethod.POST,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getHtmlFdpMetadata(HttpServletRequest request, 
-             @ModelAttribute("login") Login login) throws
-            FairMetadataServiceException, ResourceNotFoundException,
-            MetadataException {
-        if(!login.getUserName().equalsIgnoreCase("admin") || 
-                !login.getPassword().equalsIgnoreCase("admin")) {
-            ModelAndView mav = new ModelAndView("login");
-            mav.addObject("error", "Invalid username or password");
-            return mav;
-        }
         ModelAndView mav = new ModelAndView("repository");
         LOGGER.info("Request to get FDP metadata");
         LOGGER.info("GET : " + request.getRequestURL());
@@ -162,6 +148,36 @@ public class MetadataController {
         }
         FDPMetadata metadata = fairMetaDataService.retrieveFDPMetaData(
                 valueFactory.createIRI(uri));
+        mav.addObject("metadata", metadata);
+        mav.addObject("jsonLd", MetadataUtils.getString(metadata,
+                RDFFormat.JSONLD));
+        return mav;
+    }
+
+//    @ApiIgnore
+//    @RequestMapping(method = RequestMethod.GET,
+//            produces = MediaType.TEXT_HTML_VALUE)
+//    public ModelAndView getLoginFdpMetadata(HttpServletRequest request) throws
+//            FairMetadataServiceException, ResourceNotFoundException,
+//            MetadataException {
+//        ModelAndView mav = new ModelAndView("login");
+//        mav.addObject("error", null);
+//        return mav;
+//    }
+    @ApiIgnore
+    @RequestMapping(value = "/login", method = RequestMethod.POST,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView resloveAccessRights(HttpServletRequest request,
+            @ModelAttribute("login") Login login) throws
+            FairMetadataServiceException, ResourceNotFoundException,
+            MetadataException {
+        if (!login.getUserName().equalsIgnoreCase("admin")
+                || !login.getPassword().equalsIgnoreCase("admin")) {
+            ModelAndView mav = new ModelAndView("login");
+            mav.addObject("error", "Invalid username or password");
+            return mav;
+        }
+        ModelAndView mav = new ModelAndView(view);
         mav.addObject("metadata", metadata);
         mav.addObject("jsonLd", MetadataUtils.getString(metadata,
                 RDFFormat.JSONLD));
@@ -256,6 +272,14 @@ public class MetadataController {
         String uri = getRequesedURL(request);
         DatasetMetadata metadata = fairMetaDataService.
                 retrieveDatasetMetaData(valueFactory.createIRI(uri));
+        AccessRights accessRights = metadata.getAccessRights();
+        if (accessRights != null) {
+            mav = new ModelAndView("login");
+            mav.addObject("error", null);
+            this.metadata = metadata;
+            this.view = "dataset";
+            return mav;
+        }
         mav.addObject("metadata", metadata);
         mav.addObject("jsonLd", MetadataUtils.getString(metadata,
                 RDFFormat.JSONLD));

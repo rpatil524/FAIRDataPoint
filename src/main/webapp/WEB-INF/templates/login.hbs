@@ -15,11 +15,11 @@
     </head>
     <body>
         <div class="wrapper">
-            <form class="form-signin" method="POST">       
+            <form class="form-signin" method="POST" action="/fdp/login">       
                 <h2 class="form-signin-heading">Please login</h2>
                 <input type="text" class="form-control" name="userName" placeholder="Username" required="" autofocus="" />
                 <input type="password" class="form-control" name="password" placeholder="Password" required=""/> 
-                <button class="btn btn-lg btn-primary btn-block" type="submit" value="/">Login</button>               
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>               
                 {{#if error}}    
                     <div class="alert alert-danger" role="alert">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
