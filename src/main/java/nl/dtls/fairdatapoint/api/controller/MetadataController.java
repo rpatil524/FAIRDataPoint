@@ -154,16 +154,29 @@ public class MetadataController {
         return mav;
     }
 
-//    @ApiIgnore
-//    @RequestMapping(method = RequestMethod.GET,
-//            produces = MediaType.TEXT_HTML_VALUE)
-//    public ModelAndView getLoginFdpMetadata(HttpServletRequest request) throws
-//            FairMetadataServiceException, ResourceNotFoundException,
-//            MetadataException {
-//        ModelAndView mav = new ModelAndView("login");
-//        mav.addObject("error", null);
-//        return mav;
-//    }
+    @ApiIgnore
+    @RequestMapping(value = "/accessControl", method = RequestMethod.POST,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView resloveAccessRights(HttpServletRequest request,
+            @ModelAttribute("agentUrl") String agentUrl) throws
+            FairMetadataServiceException, ResourceNotFoundException,
+            MetadataException {
+        AccessRights accessRights = metadata.getAccessRights();
+        ModelAndView mav = new ModelAndView(view);
+        for (Agent agent : accessRights.getAuthorization().getAuthorizedAgent()) {
+            if (agent.getUri().equals(valueFactory.createIRI(agentUrl))) {
+                mav.addObject("metadata", metadata);
+                mav.addObject("jsonLd", MetadataUtils.getString(metadata,
+                        RDFFormat.JSONLD));
+                return mav;
+            }
+        }
+        mav = new ModelAndView("accessControl");
+        mav.addObject("error", 
+                "Sorry. You don't have access rights to see this content");
+        return mav;
+    }
+
     @ApiIgnore
     @RequestMapping(value = "/login", method = RequestMethod.POST,
             produces = MediaType.TEXT_HTML_VALUE)
@@ -203,7 +216,8 @@ public class MetadataController {
     )
     @ResponseStatus(HttpStatus.OK)
     public CatalogMetadata getCatalogMetaData(
-            @PathVariable final String id, HttpServletRequest request,
+            @PathVariable
+            final String id, HttpServletRequest request,
             HttpServletResponse response) throws FairMetadataServiceException,
             ResourceNotFoundException {
         LOGGER.info("Request to get CATALOG metadata with ID ", id);
@@ -250,7 +264,8 @@ public class MetadataController {
     )
     @ResponseStatus(HttpStatus.OK)
     public DatasetMetadata getDatasetMetaData(
-            @PathVariable final String id, HttpServletRequest request,
+            @PathVariable
+            final String id, HttpServletRequest request,
             HttpServletResponse response) throws FairMetadataServiceException,
             ResourceNotFoundException {
         LOGGER.info("Request to get DATASET metadata with ID ", id);
@@ -274,7 +289,7 @@ public class MetadataController {
                 retrieveDatasetMetaData(valueFactory.createIRI(uri));
         AccessRights accessRights = metadata.getAccessRights();
         if (accessRights != null) {
-            mav = new ModelAndView("login");
+            mav = new ModelAndView("accessControl");
             mav.addObject("error", null);
             this.metadata = metadata;
             this.view = "dataset";
@@ -304,7 +319,8 @@ public class MetadataController {
             method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public DistributionMetadata getDistribution(
-            @PathVariable final String id,
+            @PathVariable
+            final String id,
             HttpServletRequest request,
             HttpServletResponse response) throws FairMetadataServiceException,
             ResourceNotFoundException {
