@@ -203,7 +203,7 @@ public class MetadataController {
                 return mav;
             }
         }
-        mav = new ModelAndView("accessControl");
+        mav = new ModelAndView("accessDenied");
         mav.addObject("error", 
                 "Sorry. You don't have access rights to see this content");
         return mav;
