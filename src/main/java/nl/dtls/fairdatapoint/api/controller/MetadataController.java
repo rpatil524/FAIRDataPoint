@@ -55,6 +55,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.Arrays;
+import java.util.Map;
 import nl.dtl.fairmetadata4j.io.MetadataException;
 import nl.dtl.fairmetadata4j.io.MetadataParserException;
 import nl.dtl.fairmetadata4j.model.AccessRights;
@@ -70,10 +72,12 @@ import nl.dtl.fairmetadata4j.utils.vocabulary.DataCite;
 import nl.dtls.fairdatapoint.api.controller.utils.LoggerUtils;
 import nl.dtls.fairdatapoint.service.FairMetaDataService;
 import nl.dtls.fairdatapoint.service.FairMetadataServiceException;
+import nl.dtls.fairdatapoint.service.OrcidServiceException;
+import nl.dtls.fairdatapoint.service.impl.OrcidService;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.context.request.WebRequest;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
@@ -93,6 +97,8 @@ public class MetadataController {
             = LogManager.getLogger(MetadataController.class);
     @Autowired
     private FairMetaDataService fairMetaDataService;
+    @Autowired
+    private OrcidService orcidService;
     private boolean isFDPMetaDataAvailable = false;
     private final ValueFactory valueFactory = SimpleValueFactory.getInstance();
     private static Metadata metadata;
@@ -154,17 +160,43 @@ public class MetadataController {
         return mav;
     }
 
+//    @ApiIgnore
+//    @RequestMapping(value = "/accessControl", method = RequestMethod.POST,
+//            produces = MediaType.TEXT_HTML_VALUE)
+//    public ModelAndView resloveAccessRights(HttpServletRequest request,
+//            @ModelAttribute("agentUrl") String agentUrl) throws
+//            FairMetadataServiceException, ResourceNotFoundException,
+//            MetadataException {
+//        AccessRights accessRights = metadata.getAccessRights();
+//        ModelAndView mav = new ModelAndView(view);
+//        for (Agent agent : accessRights.getAuthorization().getAuthorizedAgent()) {
+//            if (agent.getUri().equals(valueFactory.createIRI(agentUrl))) {
+//                mav.addObject("metadata", metadata);
+//                mav.addObject("jsonLd", MetadataUtils.getString(metadata,
+//                        RDFFormat.JSONLD));
+//                return mav;
+//            }
+//        }
+//        mav = new ModelAndView("accessControl");
+//        mav.addObject("error", 
+//                "Sorry. You don't have access rights to see this content");
+//        return mav;
+//    }
+    
     @ApiIgnore
-    @RequestMapping(value = "/accessControl", method = RequestMethod.POST,
+    @RequestMapping(value = "/accessControl", method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView resloveAccessRights(HttpServletRequest request,
-            @ModelAttribute("agentUrl") String agentUrl) throws
+    public ModelAndView resloveAccessRightsORCID(HttpServletRequest request,
+            WebRequest webRequest) throws
             FairMetadataServiceException, ResourceNotFoundException,
-            MetadataException {
+            MetadataException, OrcidServiceException {
+        Map<String, String[]> params = webRequest.getParameterMap();
         AccessRights accessRights = metadata.getAccessRights();
         ModelAndView mav = new ModelAndView(view);
+        String code = params.get("code")[0];
+        IRI agentUrl = orcidService.getOrcidUri(code);
         for (Agent agent : accessRights.getAuthorization().getAuthorizedAgent()) {
-            if (agent.getUri().equals(valueFactory.createIRI(agentUrl))) {
+            if (agent.getUri().equals(agentUrl)) {
                 mav.addObject("metadata", metadata);
                 mav.addObject("jsonLd", MetadataUtils.getString(metadata,
                         RDFFormat.JSONLD));
@@ -289,8 +321,9 @@ public class MetadataController {
                 retrieveDatasetMetaData(valueFactory.createIRI(uri));
         AccessRights accessRights = metadata.getAccessRights();
         if (accessRights != null) {
-            mav = new ModelAndView("accessControl");
-            mav.addObject("error", null);
+            String redirectUrl = "https://orcid.org/oauth/authorize?client_id=APP-2P194EDZ02TF7E4A&response_type=code&scope=/authenticate&redirect_uri=http://127.0.0.1:8084/fdp/accessControl";
+            mav = new ModelAndView("redirect:" + redirectUrl);
+            //mav.addObject("error", null);
             this.metadata = metadata;
             this.view = "dataset";
             return mav;
