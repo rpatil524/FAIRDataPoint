@@ -47,6 +47,8 @@ import org.apache.logging.log4j.LogManager;
 import org.eclipse.rdf4j.model.IRI;
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -62,17 +64,37 @@ public class OrcidService {
 
     private final static org.apache.logging.log4j.Logger LOGGER
             = LogManager.getLogger(OrcidService.class);
-    private final String orcidUrl = "https://orcid.org/oauth/token";
-    private final String clientId = "APP-2P194EDZ02TF7E4A";
-    private final String clientSecret = "04f6637f-37e3-48ad-9ba7-086c48c0ab65";
-    private final String grantType = "authorization_code";
-    private final String redirectUri = 
-            "http://127.0.0.1:8084/fdp/accessControl";
+    @Autowired
+    @Qualifier("orcidTokenUrl")
+    private String orcidTokenUrl;
+    @Autowired
+    @Qualifier("orcidAuthorizeUrl")
+    private String orcidAuthorizeUrl;
+    @Autowired
+    @Qualifier("clientId")
+    private String clientId;
+    @Autowired
+    @Qualifier("clientSecret")
+    private String clientSecret;
+    @Autowired
+    @Qualifier("grantType")
+    private String grantType;
+    @Autowired
+    @Qualifier("redirectUri")
+    private String redirectUri;
+    
+    public String getAuthorizeUrl(){
+        
+        String url = orcidAuthorizeUrl + "?client_id=" + clientId + 
+                "&response_type=code&scope=/authenticate&redirect_uri="+ 
+                redirectUri;
+        return url;           
+    }
 
     public IRI getOrcidUri(@Nonnull String code) throws OrcidServiceException {
         IRI orcidUri = null;
         try {
-            URL url = new URL(orcidUrl);
+            URL url = new URL(orcidTokenUrl);
             HashMap<String, String> params = new HashMap<>();
             params.put("client_id", clientId);
             params.put("client_secret", clientSecret);

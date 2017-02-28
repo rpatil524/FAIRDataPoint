@@ -74,7 +74,8 @@ import nl.dtls.fairdatapoint.repository.impl.StoreManagerImpl;
 @Import(ApplicationSwaggerConfig.class)
 @ComponentScan(basePackages = "nl.dtls.fairdatapoint.*")
 @PropertySource({"${fdp.server.conf:classpath:/conf/fdp-server.properties}",
-    "${fdp.tripleStore.conf:classpath:/conf/triple-store.properties}"})
+    "${fdp.tripleStore.conf:classpath:/conf/triple-store.properties}",
+    "${fdp.tripleStore.conf:classpath:/conf/orcid-api.properties}"})
 public class RestApiContext extends WebMvcConfigurerAdapter {
 
     private final static Logger LOGGER
@@ -123,6 +124,36 @@ public class RestApiContext extends WebMvcConfigurerAdapter {
     @Bean(name = "properties")
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
+    }
+    
+    @Bean(name = "orcidTokenUrl")
+    public String orcidTokenUrl(final Environment env)  {
+        return env.getRequiredProperty("orcidTokenUrl");
+    }
+    
+    @Bean(name = "orcidAuthorizeUrl")
+    public String orcidAuthorizeUrl(final Environment env)  {
+        return env.getRequiredProperty("orcidAuthorizeUrl");
+    }
+    
+    @Bean(name = "clientId")
+    public String clientId(final Environment env)  {
+        return env.getRequiredProperty("clientId");
+    }
+    
+    @Bean(name = "clientSecret")
+    public String clientSecret(final Environment env)  {
+        return env.getRequiredProperty("clientSecret");
+    }
+    
+    @Bean(name = "grantType")
+    public String grantType(final Environment env)  {
+        return env.getRequiredProperty("grantType");
+    }
+    
+    @Bean(name = "redirectUri")
+    public String redirectUri(final Environment env)  {
+        return env.getRequiredProperty("redirectUri");
     }
 
     @Override

@@ -321,9 +321,8 @@ public class MetadataController {
                 retrieveDatasetMetaData(valueFactory.createIRI(uri));
         AccessRights accessRights = metadata.getAccessRights();
         if (accessRights != null) {
-            String redirectUrl = "https://orcid.org/oauth/authorize?client_id=APP-2P194EDZ02TF7E4A&response_type=code&scope=/authenticate&redirect_uri=http://127.0.0.1:8084/fdp/accessControl";
-            mav = new ModelAndView("redirect:" + redirectUrl);
-            //mav.addObject("error", null);
+            mav = new ModelAndView("redirect:" + 
+                    orcidService.getAuthorizeUrl());
             this.metadata = metadata;
             this.view = "dataset";
             return mav;
