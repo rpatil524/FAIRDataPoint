@@ -145,7 +145,6 @@ public class MetadataController {
     public ModelAndView getHtmlFdpMetadata(HttpServletRequest request) throws
             FairMetadataServiceException, ResourceNotFoundException,
             MetadataException {
-        ModelAndView mav = new ModelAndView("repository");
         LOGGER.info("Request to get FDP metadata");
         LOGGER.info("GET : " + request.getRequestURL());
         String uri = getRequesedURL(request);
@@ -154,34 +153,30 @@ public class MetadataController {
         }
         FDPMetadata metadata = fairMetaDataService.retrieveFDPMetaData(
                 valueFactory.createIRI(uri));
-        mav.addObject("metadata", metadata);
-        mav.addObject("jsonLd", MetadataUtils.getString(metadata,
+        return getModelAndView(metadata);
+    }
+    
+    
+
+    @ApiIgnore
+    @RequestMapping(value = "/login", method = RequestMethod.POST,
+            produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView resloveLoginAccess(HttpServletRequest request,
+            @ModelAttribute("login") Login login) throws
+            FairMetadataServiceException, ResourceNotFoundException,
+            MetadataException {
+        if (!login.getUserName().equalsIgnoreCase("admin")
+                || !login.getPassword().equalsIgnoreCase("admin")) {
+            ModelAndView mav = new ModelAndView("login");
+            mav.addObject("error", "Invalid username or password");
+            return mav;
+        }
+        ModelAndView mav = new ModelAndView(this.view);
+        mav.addObject("metadata", this.metadata);
+        mav.addObject("jsonLd", MetadataUtils.getString(this.metadata,
                 RDFFormat.JSONLD));
         return mav;
     }
-
-//    @ApiIgnore
-//    @RequestMapping(value = "/accessControl", method = RequestMethod.POST,
-//            produces = MediaType.TEXT_HTML_VALUE)
-//    public ModelAndView resloveAccessRights(HttpServletRequest request,
-//            @ModelAttribute("agentUrl") String agentUrl) throws
-//            FairMetadataServiceException, ResourceNotFoundException,
-//            MetadataException {
-//        AccessRights accessRights = metadata.getAccessRights();
-//        ModelAndView mav = new ModelAndView(view);
-//        for (Agent agent : accessRights.getAuthorization().getAuthorizedAgent()) {
-//            if (agent.getUri().equals(valueFactory.createIRI(agentUrl))) {
-//                mav.addObject("metadata", metadata);
-//                mav.addObject("jsonLd", MetadataUtils.getString(metadata,
-//                        RDFFormat.JSONLD));
-//                return mav;
-//            }
-//        }
-//        mav = new ModelAndView("accessControl");
-//        mav.addObject("error", 
-//                "Sorry. You don't have access rights to see this content");
-//        return mav;
-//    }
     
     @ApiIgnore
     @RequestMapping(value = "/accessControl", method = RequestMethod.GET,
@@ -206,26 +201,6 @@ public class MetadataController {
         mav = new ModelAndView("accessDenied");
         mav.addObject("error", 
                 "Sorry. You don't have access rights to see this content");
-        return mav;
-    }
-
-    @ApiIgnore
-    @RequestMapping(value = "/login", method = RequestMethod.POST,
-            produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView resloveAccessRights(HttpServletRequest request,
-            @ModelAttribute("login") Login login) throws
-            FairMetadataServiceException, ResourceNotFoundException,
-            MetadataException {
-        if (!login.getUserName().equalsIgnoreCase("admin")
-                || !login.getPassword().equalsIgnoreCase("admin")) {
-            ModelAndView mav = new ModelAndView("login");
-            mav.addObject("error", "Invalid username or password");
-            return mav;
-        }
-        ModelAndView mav = new ModelAndView(view);
-        mav.addObject("metadata", metadata);
-        mav.addObject("jsonLd", MetadataUtils.getString(metadata,
-                RDFFormat.JSONLD));
         return mav;
     }
 
@@ -568,6 +543,7 @@ public class MetadataController {
         this.metadata = metadata;        
         if (metadata instanceof FDPMetadata) {
             this.view = "repository";
+            return new ModelAndView("login");
         } else if (metadata instanceof CatalogMetadata) {
             this.view = "catalog";
         } else if (metadata instanceof DatasetMetadata) {
