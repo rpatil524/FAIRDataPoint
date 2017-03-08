@@ -267,14 +267,10 @@ public class MetadataController {
     public ModelAndView getHtmlCatalogMetadata(HttpServletRequest request)
             throws FairMetadataServiceException, ResourceNotFoundException,
             MetadataException {
-        ModelAndView mav = new ModelAndView("catalog");
         String uri = getRequesedURL(request);
         CatalogMetadata metadata = fairMetaDataService.
                 retrieveCatalogMetaData(valueFactory.createIRI(uri));
-        mav.addObject("metadata", metadata);
-        mav.addObject("jsonLd", MetadataUtils.getString(metadata,
-                RDFFormat.JSONLD));
-        return mav;
+        return getModelAndView(metadata);
     }
 
     /**
@@ -315,22 +311,10 @@ public class MetadataController {
     public ModelAndView getHtmlDatsetMetadata(HttpServletRequest request)
             throws FairMetadataServiceException, ResourceNotFoundException,
             MetadataException {
-        ModelAndView mav = new ModelAndView("dataset");
         String uri = getRequesedURL(request);
         DatasetMetadata metadata = fairMetaDataService.
                 retrieveDatasetMetaData(valueFactory.createIRI(uri));
-        AccessRights accessRights = metadata.getAccessRights();
-        if (accessRights != null) {
-            mav = new ModelAndView("redirect:" + 
-                    orcidService.getAuthorizeUrl());
-            this.metadata = metadata;
-            this.view = "dataset";
-            return mav;
-        }
-        mav.addObject("metadata", metadata);
-        mav.addObject("jsonLd", MetadataUtils.getString(metadata,
-                RDFFormat.JSONLD));
-        return mav;
+        return getModelAndView(metadata);        
     }
 
     /**
@@ -372,14 +356,10 @@ public class MetadataController {
     public ModelAndView getHtmlDistributionMetadata(HttpServletRequest request)
             throws FairMetadataServiceException, ResourceNotFoundException,
             MetadataException {
-        ModelAndView mav = new ModelAndView("distribution");
         String uri = getRequesedURL(request);
         DistributionMetadata metadata = fairMetaDataService.
                 retrieveDistributionMetaData(valueFactory.createIRI(uri));
-        mav.addObject("metadata", metadata);
-        mav.addObject("jsonLd", MetadataUtils.getString(metadata,
-                RDFFormat.JSONLD));
-        return mav;
+        return getModelAndView(metadata);
     }
 
     /**
@@ -580,6 +560,33 @@ public class MetadataController {
                     "Error creating generic FDP meatdata " + ex.getMessage());
         }
 
+    }
+    
+    private <T extends Metadata> ModelAndView getModelAndView(T metadata) 
+            throws MetadataException{
+        ModelAndView mav;
+        this.metadata = metadata;        
+        if (metadata instanceof FDPMetadata) {
+            this.view = "repository";
+        } else if (metadata instanceof CatalogMetadata) {
+            this.view = "catalog";
+        } else if (metadata instanceof DatasetMetadata) {
+            this.view = "dataset";
+        } else if (metadata instanceof DistributionMetadata) {
+            this.view = "distribution";
+        }
+        AccessRights accessRights = metadata.getAccessRights();
+        if (accessRights != null) {
+            mav = new ModelAndView("redirect:" +
+                    orcidService.getAuthorizeUrl());            
+            return mav;
+        }
+        mav = new ModelAndView(this.view);
+        mav.addObject("metadata", metadata);
+        mav.addObject("jsonLd", MetadataUtils.getString(metadata,
+                RDFFormat.JSONLD));
+        return mav;
+        
     }
 
     /**
