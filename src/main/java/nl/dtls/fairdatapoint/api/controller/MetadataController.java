@@ -55,7 +55,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.Arrays;
 import java.util.Map;
 import nl.dtl.fairmetadata4j.io.MetadataException;
 import nl.dtl.fairmetadata4j.io.MetadataParserException;
@@ -186,14 +185,14 @@ public class MetadataController {
             FairMetadataServiceException, ResourceNotFoundException,
             MetadataException, OrcidServiceException {
         Map<String, String[]> params = webRequest.getParameterMap();
-        AccessRights accessRights = metadata.getAccessRights();
-        ModelAndView mav = new ModelAndView(view);
+        AccessRights accessRights = this.metadata.getAccessRights();
+        ModelAndView mav = new ModelAndView(this.view);
         String code = params.get("code")[0];
         IRI agentUrl = orcidService.getOrcidUri(code);
         for (Agent agent : accessRights.getAuthorization().getAuthorizedAgent()) {
             if (agent.getUri().equals(agentUrl)) {
-                mav.addObject("metadata", metadata);
-                mav.addObject("jsonLd", MetadataUtils.getString(metadata,
+                mav.addObject("metadata", this.metadata);
+                mav.addObject("jsonLd", MetadataUtils.getString(this.metadata,
                         RDFFormat.JSONLD));
                 return mav;
             }
@@ -201,6 +200,8 @@ public class MetadataController {
         mav = new ModelAndView("accessDenied");
         mav.addObject("error", 
                 "Sorry. You don't have access rights to see this content");
+        Agent publisher = this.metadata.getPublisher();
+        mav.addObject("publisher", publisher);
         return mav;
     }
 
