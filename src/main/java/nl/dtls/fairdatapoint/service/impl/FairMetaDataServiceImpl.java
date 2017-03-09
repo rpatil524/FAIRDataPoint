@@ -121,7 +121,6 @@ public class FairMetaDataServiceImpl implements FairMetaDataService {
     public void storeFDPMetaData(@Nonnull FDPMetadata metadata)
             throws FairMetadataServiceException, MetadataException {
         Preconditions.checkNotNull(metadata, "FDPMetadata must not be null.");
-        metadata.setCatalogs(null);
         storeMetadata(metadata);
     }
 
