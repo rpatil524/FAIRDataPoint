@@ -1,5 +1,7 @@
 instance:
+  index: false
   clientUrl: http://localhost:8080
+  behindProxy: true
 
 spring:
   data:
@@ -51,19 +53,19 @@ metadataProperties:
   license: http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0
   accessRightsDescription: This resource has no access restriction
 
-threadPoolSize: 4
+openapi:
+  title: FAIR Data Point API
+  version: 1.11.0
+  description: "The reference implementation of the metadata registration service: A service implementing the API specification. It contains an authentication system to allow maintainers to define and update metadata. Read-only access to the data is public."
+  contact:
+    name: Luiz Bonino
+    email: luiz.bonino@go-fair.org
+    url: https://github.com/FAIRDataTeam/FAIRDataPoint
 
-metadataMetrics:
-  https://purl.org/fair-metrics/FM_F1A: https://www.ietf.org/rfc/rfc3986.txt
-  https://purl.org/fair-metrics/FM_A1.1: https://www.wikidata.org/wiki/Q8777
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    operationsSorter: alpha
 
-fdp-index:
-  enabled: false
-  events:
-    retrieval:
-      rateLimitWait: PT10M # 10 minutes (ISO 8601)
-      timeout: PT1M # 1 minute (ISO 8601)
-    ping:
-      validDuration: P7D # 7 days (ISO 8601)
-      rateLimitDuration: PT6H
-      rateLimitHits: 10
+server:
+  forward-headers-strategy: framework

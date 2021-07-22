@@ -26,14 +26,27 @@ import nl.dtls.fairdatapoint.entity.shape.Shape;
 import nl.dtls.fairdatapoint.entity.shape.ShapeType;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class ShapeFixtures {
+
+    public static final String RESOURCE_SHAPE_UUID = "6a668323-3936-4b53-8380-a4fd2ed082ee";
+
+    public static final String REPOSITORY_SHAPE_UUID = "a92958ab-a414-47e6-8e17-68ba96ba3a2b";
+
+    public static final String CATALOG_SHAPE_UUID = "2aa7ba63-d27a-4c0e-bfa6-3a4e250f4660";
+
+    public static final String DATASET_SHAPE_UUID = "866d7fb8-5982-4215-9c7c-18d0ed1bd5f3";
+
+    public static final String DISTRIBUTION_SHAPE_UUID = "ebacbf83-cd4f-4113-8738-d73c0735b0ab";
 
     public Shape resourceShape() {
         return new Shape(
                 null,
                 "6a668323-3936-4b53-8380-a4fd2ed082ee",
                 "Resource",
+                false,
                 ShapeType.INTERNAL,
                 "@prefix :         <http://fairdatapoint.org/> .\n" +
                         "@prefix dash:     <http://datashapes.org/dash#> .\n" +
@@ -98,7 +111,8 @@ public class ShapeFixtures {
                         "    sh:minCount 1 ;\n" +
                         "    sh:maxCount  1 ;\n" +
                         "    dash:editor dash:TextFieldEditor ;\n" +
-                        "  ] ."
+                        "  ] .",
+                Set.of("http://www.w3.org/ns/dcat#Resource")
         );
     }
 
@@ -107,6 +121,7 @@ public class ShapeFixtures {
                 null,
                 "a92958ab-a414-47e6-8e17-68ba96ba3a2b",
                 "Repository",
+                false,
                 ShapeType.INTERNAL,
                 "@prefix :         <http://fairdatapoint.org/> .\n" +
                         "@prefix dash:     <http://datashapes.org/dash#> .\n" +
@@ -147,7 +162,8 @@ public class ShapeFixtures {
                         "    sh:maxCount 1 ;\n" +
                         "    dash:editor dash:URIEditor ;\n" +
                         "    dash:viewer dash:LabelViewer ;\n" +
-                        "  ] .\n"
+                        "  ] .\n",
+                Set.of("http://www.w3.org/ns/dcat#Repository")
         );
     }
 
@@ -156,6 +172,7 @@ public class ShapeFixtures {
                 null,
                 "2aa7ba63-d27a-4c0e-bfa6-3a4e250f4660",
                 "Catalog",
+                false,
                 ShapeType.INTERNAL,
                 "@prefix :         <http://fairdatapoint.org/> .\n" +
                         "@prefix dash:     <http://datashapes.org/dash#> .\n" +
@@ -186,7 +203,8 @@ public class ShapeFixtures {
                         "    sh:path dcat:themeTaxonomy ;\n" +
                         "    sh:nodeKind sh:IRI ;\n" +
                         "    dash:viewer dash:LabelViewer ;\n" +
-                        "  ] .\n"
+                        "  ] .\n",
+                Set.of("http://www.w3.org/ns/dcat#Catalog")
         );
     }
 
@@ -195,7 +213,8 @@ public class ShapeFixtures {
                 null,
                 "866d7fb8-5982-4215-9c7c-18d0ed1bd5f3",
                 "Dataset",
-                ShapeType.INTERNAL,
+                false,
+                ShapeType.CUSTOM,
                 "@prefix :         <http://fairdatapoint.org/> .\n" +
                         "@prefix dash:     <http://datashapes.org/dash#> .\n" +
                         "@prefix dcat:     <http://www.w3.org/ns/dcat#> .\n" +
@@ -239,7 +258,8 @@ public class ShapeFixtures {
                         "    sh:maxCount 1 ;\n" +
                         "    dash:editor dash:URIEditor ;\n" +
                         "    dash:viewer dash:LabelViewer ;\n" +
-                        "  ] .\n"
+                        "  ] .\n",
+                Set.of("http://www.w3.org/ns/dcat#Dataset")
         );
     }
 
@@ -248,7 +268,8 @@ public class ShapeFixtures {
                 null,
                 "ebacbf83-cd4f-4113-8738-d73c0735b0ab",
                 "Distribution",
-                ShapeType.INTERNAL,
+                false,
+                ShapeType.CUSTOM,
                 "@prefix :         <http://fairdatapoint.org/> .\n" +
                         "@prefix dash:     <http://datashapes.org/dash#> .\n" +
                         "@prefix dcat:     <http://www.w3.org/ns/dcat#> .\n" +
@@ -298,7 +319,8 @@ public class ShapeFixtures {
                         "    sh:maxCount 1 ;\n" +
                         "    dash:editor dash:TextFieldEditor ;\n" +
                         "    dash:viewer dash:LiteralViewer ;\n" +
-                        "  ] ."
+                        "  ] .",
+                Set.of("http://www.w3.org/ns/dcat#Distribution")
         );
     }
 
@@ -307,6 +329,7 @@ public class ShapeFixtures {
                 null,
                 "ceba9984-9838-4be2-a2a7-12213016fd96",
                 "Custom Shape",
+                false,
                 ShapeType.CUSTOM,
                 "@prefix :         <http://fairdatapoint.org/> .\n" +
                         "@prefix sh:       <http://www.w3.org/ns/shacl#> .\n" +
@@ -320,7 +343,8 @@ public class ShapeFixtures {
                         "      sh:nodeKind sh:IRI ;\n" +
                         "      dash:editor dash:URIEditor ;\n" +
                         "      dash:viewer dash:LabelViewer ;\n" +
-                        "    ] ."
+                        "    ] .",
+                Set.of("http://example.org/Dog")
         );
     }
 
@@ -329,6 +353,7 @@ public class ShapeFixtures {
                 null,
                 customShape().getUuid(),
                 customShape().getName(),
+                false,
                 customShape().getType(),
                 "@prefix :         <http://fairdatapoint.org/> .\n" +
                         "@prefix sh:       <http://www.w3.org/ns/shacl#> .\n" +
@@ -348,7 +373,8 @@ public class ShapeFixtures {
                         "      sh:nodeKind sh:Literal ;\n" +
                         "      dash:editor dash:TextFieldEditor ;\n" +
                         "      dash:viewer dash:LiteralViewer ;\n" +
-                        "    ] ."
+                        "    ] .",
+                Set.of("http://example.org/Dog")
         );
     }
 

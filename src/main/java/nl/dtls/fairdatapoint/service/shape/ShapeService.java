@@ -24,10 +24,15 @@ package nl.dtls.fairdatapoint.service.shape;
 
 import nl.dtls.fairdatapoint.api.dto.shape.ShapeChangeDTO;
 import nl.dtls.fairdatapoint.api.dto.shape.ShapeDTO;
+import nl.dtls.fairdatapoint.api.dto.shape.ShapeRemoteDTO;
+import nl.dtls.fairdatapoint.database.mongo.repository.ResourceDefinitionRepository;
 import nl.dtls.fairdatapoint.database.mongo.repository.ShapeRepository;
+import nl.dtls.fairdatapoint.entity.exception.ShapeImportException;
 import nl.dtls.fairdatapoint.entity.exception.ValidationException;
+import nl.dtls.fairdatapoint.entity.resource.ResourceDefinition;
 import nl.dtls.fairdatapoint.entity.shape.Shape;
 import nl.dtls.fairdatapoint.entity.shape.ShapeType;
+import nl.dtls.fairdatapoint.service.resource.ResourceDefinitionTargetClassesCache;
 import nl.dtls.fairdatapoint.util.RdfIOUtil;
 import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.model.impl.LinkedHashModel;
@@ -39,7 +44,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import static java.lang.String.format;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static java.util.stream.Collectors.toList;
@@ -51,13 +58,28 @@ public class ShapeService {
     private ShapeRepository shapeRepository;
 
     @Autowired
+    private ResourceDefinitionRepository resourceDefinitionRepository;
+
+    @Autowired
     private ShapeMapper shapeMapper;
 
     @Autowired
     private ShapeValidator shapeValidator;
 
+    @Autowired
+    private ResourceDefinitionTargetClassesCache targetClassesCache;
+
     public List<ShapeDTO> getShapes() {
         List<Shape> shapes = shapeRepository.findAll();
+        return
+                shapes
+                        .stream()
+                        .map(shapeMapper::toDTO)
+                        .collect(toList());
+    }
+
+    public List<ShapeDTO> getPublishedShapes() {
+        List<Shape> shapes = shapeRepository.findAllByPublishedIsTrue();
         return
                 shapes
                         .stream()
@@ -85,6 +107,7 @@ public class ShapeService {
         String uuid = UUID.randomUUID().toString();
         Shape shape = shapeMapper.fromChangeDTO(reqDto, uuid);
         shapeRepository.save(shape);
+        targetClassesCache.computeCache();
         return shapeMapper.toDTO(shape);
     }
 
@@ -96,12 +119,9 @@ public class ShapeService {
             return empty();
         }
         Shape shape = oShape.get();
-        if (shape.getType() == ShapeType.INTERNAL) {
-            throw new ValidationException("You can't edit INTERNAL Shape");
-        }
-
         Shape updatedShape = shapeMapper.fromChangeDTO(reqDto, shape);
         shapeRepository.save(updatedShape);
+        targetClassesCache.computeCache();
         return of(shapeMapper.toDTO(updatedShape));
     }
 
@@ -112,7 +132,17 @@ public class ShapeService {
             return false;
         }
         Shape shape = oShape.get();
+
+        List<ResourceDefinition> resourceDefinitions = resourceDefinitionRepository.findByShapeUuidsIsContaining(shape.getUuid());
+        if (!resourceDefinitions.isEmpty()) {
+            throw new ValidationException(format("Shape is used in %d resource definitions", resourceDefinitions.size()));
+        }
+
+        if (shape.getType() == ShapeType.INTERNAL) {
+            throw new ValidationException("You can't delete INTERNAL Shape");
+        }
         shapeRepository.delete(shape);
+        targetClassesCache.computeCache();
         return true;
     }
 
@@ -125,4 +155,30 @@ public class ShapeService {
         return shacl;
     }
 
+    public List<ShapeRemoteDTO> getRemoteShapes(String fdpUrl) {
+        List<ShapeDTO> shapes = ShapeRetrievalUtils.retrievePublishedShapes(fdpUrl);
+        return shapes
+                .stream()
+                .map(s -> shapeMapper.toRemoteDTO(fdpUrl, s))
+                .collect(Collectors.toList());
+    }
+
+    private ShapeDTO importShape(ShapeChangeDTO reqDto) {
+        shapeValidator.validate(reqDto);
+        String uuid = UUID.randomUUID().toString();
+        Shape shape = shapeMapper.fromChangeDTO(reqDto, uuid);
+        shapeRepository.save(shape);
+        return shapeMapper.toDTO(shape);
+    }
+
+    public List<ShapeDTO> importShapes(List<ShapeRemoteDTO> reqDtos) {
+        List<ShapeDTO> result =
+                reqDtos
+                        .stream()
+                        .map(s -> shapeMapper.fromRemoteDTO(s))
+                        .map(this::importShape)
+                        .collect(Collectors.toList());
+        targetClassesCache.computeCache();
+        return result;
+    }
 }

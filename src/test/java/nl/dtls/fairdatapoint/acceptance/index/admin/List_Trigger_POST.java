@@ -23,6 +23,7 @@
 package nl.dtls.fairdatapoint.acceptance.index.admin;
 
 import nl.dtls.fairdatapoint.WebIntegrationTest;
+import nl.dtls.fairdatapoint.api.dto.index.ping.PingDTO;
 import nl.dtls.fairdatapoint.database.mongo.repository.EventRepository;
 import nl.dtls.fairdatapoint.database.mongo.repository.IndexEntryRepository;
 import nl.dtls.fairdatapoint.entity.index.entry.IndexEntry;
@@ -32,6 +33,7 @@ import nl.dtls.fairdatapoint.utils.TestIndexEntryFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -61,8 +63,10 @@ public class List_Trigger_POST extends WebIntegrationTest {
         return URI.create("/index/admin/trigger");
     }
 
-    private URI url(String clientUrl) {
-        return URI.create("/index/admin/trigger?clientUrl=" + clientUrl);
+    private PingDTO reqDTO(String clientUrl) {
+        PingDTO dto = new PingDTO();
+        dto.setClientUrl(clientUrl);
+        return dto;
     }
 
     @Test
@@ -70,11 +74,12 @@ public class List_Trigger_POST extends WebIntegrationTest {
     public void res403_noToken() {
         // GIVEN: prepare data
         String clientUrl = "http://example.com";
+        PingDTO reqDTO = reqDTO(clientUrl);
 
         // AND: prepare request
-        RequestEntity<Void> request = RequestEntity
-                .post(url(clientUrl))
-                .build();
+        RequestEntity<PingDTO> request = RequestEntity
+                .post(url())
+                .body(reqDTO);
 
         // WHEN
         ResponseEntity<Void> result = client.exchange(request, responseType);
@@ -88,12 +93,13 @@ public class List_Trigger_POST extends WebIntegrationTest {
     public void res403_incorrectToken() {
         // GIVEN: prepare data
         String clientUrl = "http://example.com";
+        PingDTO reqDTO = reqDTO(clientUrl);
 
         // AND: prepare request
-        RequestEntity<Void> request = RequestEntity
-                .post(url(clientUrl))
-                .header(HttpHeaders.AUTHORIZATION, ALBERT_TOKEN)
-                .build();
+        RequestEntity<PingDTO> request = RequestEntity
+                .post(url())
+                .header(HttpHeaders.AUTHORIZATION, "mySecretToken")
+                .body(reqDTO);
 
         // WHEN
         ResponseEntity<Void> result = client.exchange(request, responseType);
@@ -107,12 +113,13 @@ public class List_Trigger_POST extends WebIntegrationTest {
     public void res403_nonAdminToken() {
         // GIVEN: prepare data
         String clientUrl = "http://example.com";
+        PingDTO reqDTO = reqDTO(clientUrl);
 
         // AND: prepare request
-        RequestEntity<Void> request = RequestEntity
-                .post(url(clientUrl))
+        RequestEntity<PingDTO> request = RequestEntity
+                .post(url())
                 .header(HttpHeaders.AUTHORIZATION, ALBERT_TOKEN)
-                .build();
+                .body(reqDTO);
 
         // WHEN
         ResponseEntity<Void> result = client.exchange(request, responseType);
@@ -122,37 +129,39 @@ public class List_Trigger_POST extends WebIntegrationTest {
     }
 
     @Test
+    @DisplayName("HTTP 400: malformed URL")
+    public void res403_malformedUrl() {
+        // GIVEN: prepare data
+        String clientUrl = "http://example.com";
+        PingDTO reqDTO = reqDTO(clientUrl);
+        reqDTO.setClientUrl("thisIsNot/Url");
+
+        // AND: prepare request
+        RequestEntity<PingDTO> request = RequestEntity
+                .post(url())
+                .header(HttpHeaders.AUTHORIZATION, ADMIN_TOKEN)
+                .body(reqDTO);
+
+        // WHEN
+        ResponseEntity<Void> result = client.exchange(request, responseType);
+
+        // THEN:
+        assertThat("Correct response code is received", result.getStatusCode(), is(equalTo(HttpStatus.BAD_REQUEST)));
+    }
+
+    @Test
     @DisplayName("HTTP 204: trigger one")
     public void res204_triggerOne() {
         // GIVEN: prepare data
         IndexEntry entry = TestIndexEntryFixtures.entryExample();
         indexEntryRepository.save(entry);
+        PingDTO reqDTO = reqDTO(entry.getClientUrl());
 
         // AND: prepare request
-        RequestEntity<Void> request = RequestEntity
-                .post(url(entry.getUuid()))
-                .header(HttpHeaders.AUTHORIZATION, ADMIN_TOKEN)
-                .build();
-
-        // WHEN
-        ResponseEntity<Void> result = client.exchange(request, responseType);
-        List<Event> events = eventRepository.getAllByType(EventType.AdminTrigger);
-
-        // THEN: 
-        assertThat("Correct response code is received", result.getStatusCode(), is(equalTo(HttpStatus.NO_CONTENT)));
-        assertThat("One AdminTrigger event is created", events.size(), is(equalTo(1)));
-        assertThat("Records correct client URL", events.get(0).getAdminTrigger().getClientUrl(),
-                is(equalTo(entry.getUuid())));
-    }
-
-    @Test
-    @DisplayName("HTTP 204: trigger all")
-    public void res204_triggerAll() {
-        // GIVEN: prepare request
-        RequestEntity<Void> request = RequestEntity
+        RequestEntity<PingDTO> request = RequestEntity
                 .post(url())
                 .header(HttpHeaders.AUTHORIZATION, ADMIN_TOKEN)
-                .build();
+                .body(reqDTO);
 
         // WHEN
         ResponseEntity<Void> result = client.exchange(request, responseType);
@@ -161,8 +170,7 @@ public class List_Trigger_POST extends WebIntegrationTest {
         // THEN: 
         assertThat("Correct response code is received", result.getStatusCode(), is(equalTo(HttpStatus.NO_CONTENT)));
         assertThat("One AdminTrigger event is created", events.size(), is(equalTo(1)));
-        assertThat("Records correct client URL as null", events.get(0).getAdminTrigger().getClientUrl(),
-                is(equalTo(null)));
+        assertThat("Records correct client URL", events.get(0).getAdminTrigger().getClientUrl(), is(equalTo(entry.getClientUrl())));
     }
 
     @Test
@@ -170,17 +178,21 @@ public class List_Trigger_POST extends WebIntegrationTest {
     public void res404_triggerOne() {
         // GIVEN: prepare data
         IndexEntry entry = TestIndexEntryFixtures.entryExample();
+        PingDTO reqDTO = reqDTO(entry.getClientUrl());
 
         // AND: prepare request
-        RequestEntity<Void> request = RequestEntity
-                .post(url(entry.getUuid()))
+        RequestEntity<PingDTO> request = RequestEntity
+                .post(url())
                 .header(HttpHeaders.AUTHORIZATION, ADMIN_TOKEN)
-                .build();
+                .body(reqDTO);
 
         // WHEN
         ResponseEntity<Void> result = client.exchange(request, responseType);
+        List<Event> events = eventRepository.getAllByType(EventType.AdminTrigger);
 
         // THEN: 
-        assertThat("Correct response code is received", result.getStatusCode(), is(equalTo(HttpStatus.NOT_FOUND)));
+        assertThat("Correct response code is received", result.getStatusCode(), is(equalTo(HttpStatus.NO_CONTENT)));
+        assertThat("One AdminTrigger event is created", events.size(), is(equalTo(1)));
+        assertThat("Records correct client URL", events.get(0).getAdminTrigger().getClientUrl(), is(equalTo(entry.getClientUrl())));
     }
 }

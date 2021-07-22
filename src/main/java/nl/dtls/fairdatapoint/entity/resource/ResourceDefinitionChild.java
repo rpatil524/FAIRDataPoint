@@ -33,6 +33,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @EqualsAndHashCode
+@Builder(toBuilder = true)
 public class ResourceDefinitionChild {
 
     @NotBlank

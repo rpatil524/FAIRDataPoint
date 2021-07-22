@@ -28,6 +28,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -36,6 +37,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
+@Builder(toBuilder = true)
 public class ResourceDefinition {
 
     @Id
@@ -48,18 +50,18 @@ public class ResourceDefinition {
 
     protected String urlPrefix;
 
-    protected List<String> targetClassUris;
+    protected List<String> shapeUuids = new ArrayList<>();
 
-    protected List<ResourceDefinitionChild> children;
+    protected List<ResourceDefinitionChild> children = new ArrayList<>();
 
-    protected List<ResourceDefinitionLink> externalLinks;
+    protected List<ResourceDefinitionLink> externalLinks = new ArrayList<>();
 
-    public ResourceDefinition(String uuid, String name, String urlPrefix, List<String> targetClassUris,
+    public ResourceDefinition(String uuid, String name, String urlPrefix, List<String> shapeUuids,
                               List<ResourceDefinitionChild> children, List<ResourceDefinitionLink> externalLinks) {
         this.uuid = uuid;
         this.name = name;
         this.urlPrefix = urlPrefix;
-        this.targetClassUris = targetClassUris;
+        this.shapeUuids = shapeUuids;
         this.children = children;
         this.externalLinks = externalLinks;
     }

@@ -27,6 +27,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Set;
+
 @Document
 @Getter
 @Setter
@@ -42,8 +44,11 @@ public class Shape {
 
     private String name;
 
+    private boolean published;
+
     private ShapeType type;
 
     private String definition;
 
+    private Set<String> targetClasses;
 }

@@ -23,7 +23,9 @@
 package nl.dtls.fairdatapoint.acceptance.shape;
 
 import nl.dtls.fairdatapoint.WebIntegrationTest;
+import nl.dtls.fairdatapoint.api.dto.error.ErrorDTO;
 import nl.dtls.fairdatapoint.database.mongo.migration.development.shape.data.ShapeFixtures;
+import nl.dtls.fairdatapoint.database.mongo.repository.ShapeRepository;
 import nl.dtls.fairdatapoint.entity.shape.Shape;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,11 +55,15 @@ public class Detail_DELETE extends WebIntegrationTest {
     @Autowired
     private ShapeFixtures shapeFixtures;
 
+    @Autowired
+    private ShapeRepository shapeRepository;
+
     @Test
     @DisplayName("HTTP 204")
     public void res204() {
         // GIVEN:
-        Shape shape = shapeFixtures.repositoryShape();
+        Shape shape = shapeFixtures.customShape();
+        shapeRepository.save(shape);
         RequestEntity<Void> request = RequestEntity
                 .delete(url(shape.getUuid()))
                 .header(HttpHeaders.AUTHORIZATION, ADMIN_TOKEN)
@@ -73,16 +79,54 @@ public class Detail_DELETE extends WebIntegrationTest {
     }
 
     @Test
+    @DisplayName("HTTP 400")
+    public void res400_used() {
+        // GIVEN:
+        Shape shape = shapeFixtures.datasetShape();
+        RequestEntity<Void> request = RequestEntity
+                .delete(url(shape.getUuid()))
+                .header(HttpHeaders.AUTHORIZATION, ADMIN_TOKEN)
+                .build();
+        ParameterizedTypeReference<Void> responseType = new ParameterizedTypeReference<>() {
+        };
+
+        // WHEN:
+        ResponseEntity<Void> result = client.exchange(request, responseType);
+
+        // THEN:
+        assertThat(result.getStatusCode(), is(equalTo(HttpStatus.BAD_REQUEST)));
+    }
+
+    @Test
+    @DisplayName("HTTP 400: Delete INTERNAL shape")
+    public void res400_internal() {
+        // GIVEN:
+        Shape shape = shapeFixtures.repositoryShape();
+        RequestEntity<Void> request = RequestEntity
+                .delete(url(shape.getUuid()))
+                .header(HttpHeaders.AUTHORIZATION, ADMIN_TOKEN)
+                .build();
+        ParameterizedTypeReference<ErrorDTO> responseType = new ParameterizedTypeReference<>() {
+        };
+
+        // WHEN:
+        ResponseEntity<ErrorDTO> result = client.exchange(request, responseType);
+
+        // THEN:
+        assertThat(result.getStatusCode(), is(equalTo(HttpStatus.BAD_REQUEST)));
+    }
+
+    @Test
     @DisplayName("HTTP 403: User is not authenticated")
     public void res403_notAuthenticated() {
-        Shape shape = shapeFixtures.repositoryShape();
+        Shape shape = shapeFixtures.datasetShape();
         createUserForbiddenTestDelete(client, url(shape.getUuid()));
     }
 
     @Test
     @DisplayName("HTTP 403: User is not an admin")
     public void res403_shape() {
-        Shape shape = shapeFixtures.repositoryShape();
+        Shape shape = shapeFixtures.datasetShape();
         createUserForbiddenTestDelete(client, url(shape.getUuid()));
     }
 

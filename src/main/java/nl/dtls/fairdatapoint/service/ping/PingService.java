@@ -23,32 +23,58 @@
 package nl.dtls.fairdatapoint.service.ping;
 
 
+import lombok.extern.log4j.Log4j2;
+import nl.dtls.fairdatapoint.config.properties.InstanceProperties;
+import nl.dtls.fairdatapoint.config.properties.PingProperties;
+import nl.dtls.fairdatapoint.entity.settings.Settings;
+import nl.dtls.fairdatapoint.service.settings.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Map;
 
+@Log4j2
 @Service
 @ConditionalOnProperty(name = "ping.enabled", havingValue = "true", matchIfMissing = true)
 public class PingService {
 
-    @Value("${instance.clientUrl}")
-    private String clientUrl;
+    @Autowired
+    private PingProperties pingProperties;
 
-    @Value("${ping.endpoint:https://home.fairdatapoint.org}")
-    private String endpoint;
+    @Autowired
+    private InstanceProperties instanceProperties;
+
+    @Autowired
+    private SettingsService settingsService;
 
     @Autowired
     private RestTemplate client;
 
-    @Scheduled(initialDelayString = "#{10*1000}", fixedRateString = "${ping.interval:#{7*24*60*60*1000}}")
+    @Scheduled(initialDelayString = "${ping.initDelay:#{10*1000}}", fixedRateString = "${ping.interval:P7D}")
     public void ping() {
-        var request = Map.of("clientUrl", clientUrl);
-        client.postForEntity(endpoint, request, String.class);
+        Settings settings = settingsService.getOrDefaults();
+        if (!settings.getPing().isEnabled() || !pingProperties.isEnabled()) {
+            return;
+        }
+        var request = Map.of("clientUrl", instanceProperties.getClientUrl());
+        for (String endpoint : settings.getPing().getEndpoints()) {
+            pingEndpoint(endpoint.trim(), request);
+        }
     }
 
+    @Async
+    void pingEndpoint(String endpoint, Map<String, String> request) {
+        try {
+            log.info("Pinging {}", endpoint);
+            client.postForEntity(endpoint, request, String.class);
+        } catch (Exception e) {
+            log.warn("Failed to ping {}: {}", endpoint, e.getMessage());
+        }
+    }
 }

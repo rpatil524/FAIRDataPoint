@@ -53,7 +53,7 @@ public class Detail_PUT extends WebIntegrationTest {
     }
 
     private ShapeChangeDTO reqDto(Shape shape) {
-        return new ShapeChangeDTO(format("EDITED: %s", shape.getName()), shape.getDefinition());
+        return new ShapeChangeDTO(format("EDITED: %s", shape.getName()), false, shape.getDefinition());
     }
 
     @Autowired
@@ -68,6 +68,34 @@ public class Detail_PUT extends WebIntegrationTest {
         // GIVEN: Prepare data
         Shape shape = shapeFixtures.customShapeEdited();
         ShapeChangeDTO reqDto = reqDto(shape);
+
+        // AND: Prepare request
+        RequestEntity<ShapeChangeDTO> request = RequestEntity
+                .put(url(shape.getUuid()))
+                .header(HttpHeaders.AUTHORIZATION, ADMIN_TOKEN)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(reqDto);
+        ParameterizedTypeReference<ShapeDTO> responseType = new ParameterizedTypeReference<>() {
+        };
+
+        // AND: Prepare DB
+        shapeRepository.save(shape);
+
+        // WHEN:
+        ResponseEntity<ShapeDTO> result = client.exchange(request, responseType);
+
+        // THEN:
+        assertThat(result.getStatusCode(), is(equalTo(HttpStatus.OK)));
+        Common.compare(reqDto, result.getBody());
+    }
+
+    @Test
+    @DisplayName("HTTP 200: Published")
+    public void res200_published() {
+        // GIVEN: Prepare data
+        Shape shape = shapeFixtures.customShapeEdited();
+        ShapeChangeDTO reqDto = reqDto(shape);
+        reqDto.setPublished(true);
 
         // AND: Prepare request
         RequestEntity<ShapeChangeDTO> request = RequestEntity
@@ -118,8 +146,8 @@ public class Detail_PUT extends WebIntegrationTest {
     }
 
     @Test
-    @DisplayName("HTTP 400: Edit INTERNAL shape")
-    public void res400() {
+    @DisplayName("HTTP 200: Edit INTERNAL shape")
+    public void res200_internal() {
         // GIVEN:
         Shape shape = shapeFixtures.repositoryShape();
         ShapeChangeDTO reqDto = reqDto(shape);
@@ -128,14 +156,15 @@ public class Detail_PUT extends WebIntegrationTest {
                 .header(HttpHeaders.AUTHORIZATION, ADMIN_TOKEN)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(reqDto);
-        ParameterizedTypeReference<ErrorDTO> responseType = new ParameterizedTypeReference<>() {
+        ParameterizedTypeReference<ShapeDTO> responseType = new ParameterizedTypeReference<>() {
         };
 
         // WHEN:
-        ResponseEntity<ErrorDTO> result = client.exchange(request, responseType);
+        ResponseEntity<ShapeDTO> result = client.exchange(request, responseType);
 
         // THEN:
-        assertThat(result.getStatusCode(), is(equalTo(HttpStatus.BAD_REQUEST)));
+        assertThat(result.getStatusCode(), is(equalTo(HttpStatus.OK)));
+        Common.compare(reqDto, result.getBody());
     }
 
     @Test

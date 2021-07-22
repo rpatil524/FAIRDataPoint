@@ -41,6 +41,12 @@ public class CacheConfig {
 
     public static final String RESOURCE_DEFINITION_PARENT_CACHE = "RESOURCE_DEFINITION_PARENT_CACHE";
 
+    public static final String RESOURCE_DEFINITION_TARGET_CLASSES_CACHE = "RESOURCE_DEFINITION_TARGET_CLASSES_CACHE";
+
+    public static final String LABEL_CACHE = "LABEL_CACHE";
+
+    public static final String SETTINGS_CACHE = "SETTINGS_CACHE";
+
     @Bean
     public ConcurrentMapCacheManager cacheManager() {
         ConcurrentMapCacheManager cacheManager = new ConcurrentMapCacheManager();
@@ -48,7 +54,10 @@ public class CacheConfig {
                 ACL_CACHE,
                 CATALOG_THEMES_CACHE,
                 RESOURCE_DEFINITION_CACHE,
-                RESOURCE_DEFINITION_PARENT_CACHE
+                RESOURCE_DEFINITION_PARENT_CACHE,
+                RESOURCE_DEFINITION_TARGET_CLASSES_CACHE,
+                SETTINGS_CACHE,
+                LABEL_CACHE
         ));
         return cacheManager;
     }

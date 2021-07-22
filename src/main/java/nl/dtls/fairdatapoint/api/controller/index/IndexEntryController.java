@@ -22,22 +22,22 @@
  */
 package nl.dtls.fairdatapoint.api.controller.index;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.dtls.fairdatapoint.api.dto.index.entry.IndexEntryDTO;
 import nl.dtls.fairdatapoint.api.dto.index.entry.IndexEntryDetailDTO;
 import nl.dtls.fairdatapoint.api.dto.index.entry.IndexEntryInfoDTO;
-import nl.dtls.fairdatapoint.service.index.entry.IndexEntryMapper;
 import nl.dtls.fairdatapoint.service.index.entry.IndexEntryService;
-import nl.dtls.fairdatapoint.service.index.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+@Tag(name = "Index")
 @RestController
 @RequestMapping("/index/entries")
 public class IndexEntryController {
@@ -45,30 +45,29 @@ public class IndexEntryController {
     @Autowired
     private IndexEntryService service;
 
-    @Autowired
-    private EventService eventService;
-
-    @Autowired
-    private IndexEntryMapper mapper;
-
-    @GetMapping("")
+    @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<IndexEntryDTO> getEntriesPage(Pageable pageable,
                                               @RequestParam(required = false, defaultValue = "") String state) {
-        return service.getEntriesPage(pageable, state).map(mapper::toDTO);
+        return service.getEntriesPageDTOs(pageable, state);
     }
 
-    @RequestMapping(value = "/{uuid}", method = RequestMethod.GET)
+    @GetMapping(path = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<IndexEntryDetailDTO> getEntry(@PathVariable final String uuid) {
-        return service.getEntry(uuid).map(entry -> mapper.toDetailDTO(entry,
-                eventService.getEvents(entry.getUuid())));
+        return service.getEntryDetailDTO(uuid);
     }
 
-    @GetMapping("/all")
+    @DeleteMapping("/{uuid}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteEntry(@PathVariable final String uuid) {
+        service.deleteEntry(uuid);
+    }
+
+    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<IndexEntryDTO> getEntriesAll() {
-        return StreamSupport.stream(service.getAllEntries().spliterator(), true).map(mapper::toDTO).collect(Collectors.toList());
+        return service.getAllEntriesAsDTOs();
     }
 
-    @GetMapping("/info")
+    @GetMapping(path = "/info", produces = MediaType.APPLICATION_JSON_VALUE)
     public IndexEntryInfoDTO getEntriesInfo() {
         return service.getEntriesInfo();
     }
